@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>OutcoldSolutions.Presentation</id>
-    <version>1.0.30305.41247</version>
+    <version>1.0.30305.41618</version>
     <authors>Outcold Solutions</authors>
     <owners>Outcold Solutions</owners>
     <licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
