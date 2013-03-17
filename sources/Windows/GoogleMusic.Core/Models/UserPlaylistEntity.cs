@@ -14,5 +14,7 @@ namespace OutcoldSolutions.GoogleMusic.Models
         public string ProviderPlaylistId { get; set; }
 
         public string Title { get; set; }
+
+        public string TitleNorm { get; set; }
     }
 }
