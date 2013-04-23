@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>OutcoldSolutions.Presentation</id>
-    <version>1.0.30417.0</version>
+    <version>1.0.30422.0</version>
     <authors>Outcold Solutions</authors>
     <owners>Outcold Solutions</owners>
     <licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
@@ -13,7 +13,7 @@
     <copyright>Outcold Solutions. All rights reserved.</copyright>
     <tags>Framework</tags>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="5.0.2" />
+      <dependency id="Newtonsoft.Json" version="5.0.3" />
     </dependencies>
     <references>
       <reference file="OutcoldSolutions.Presentation.dll" />
