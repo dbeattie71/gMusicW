@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>OutcoldSolutions.SuitesBase</id>
+    <version>1.0.30512.0</version>
+    <authors>outcoldman</authors>
+    <owners>Outcold Solutions</owners>
+    <licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
+    <projectUrl>http://outcoldman.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Outcold Solustions Framework Suites Base Library.</description>
+    <releaseNotes>Pre-release version.</releaseNotes>
+    <copyright>Outcold Solutions. All rights reserved.</copyright>
+    <tags>Framework</tags>
+    <dependencies>
+      <dependency id="Moq" version="4.0.10827" />
+      <dependency id="Newtonsoft.Json" version="5.0.5" />
+      <dependency id="NUnit" version="2.6.2" />
+    </dependencies>
+  </metadata>
+</package>
