@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>OutcoldSolutions.SQLite</id>
+    <version>1.1.30513.1</version>
+    <authors>OutcoldSolutions</authors>
+    <owners>OutcoldSolutions</owners>
+    <licenseUrl>https://github.com/outcoldman/sqlite-net/blob/master/license.md</licenseUrl>
+    <projectUrl>https://github.com/outcoldman/sqlite-net/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SQLite client libary</description>
+    <releaseNotes>Pre-release version.</releaseNotes>
+    <copyright>OutcoldSolutions. All rights reserved.</copyright>
+    <tags>SQLite, WindowsRT, Windows Runtime, .NET Framework 4.5</tags>
+  </metadata>
+</package>
