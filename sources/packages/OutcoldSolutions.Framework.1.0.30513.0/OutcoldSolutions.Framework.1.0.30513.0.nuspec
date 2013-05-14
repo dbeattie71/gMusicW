@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>OutcoldSolutions.Presentation</id>
-    <version>1.0.30512.0</version>
+    <id>OutcoldSolutions.Framework</id>
+    <version>1.0.30513.0</version>
     <authors>Outcold Solutions</authors>
     <owners>Outcold Solutions</owners>
     <licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
     <projectUrl>http://outcoldman.com/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Outcold Solustions Framework Presentation Library.</description>
+    <description>Outcold Solustions Framework Library.</description>
     <releaseNotes>Pre-release version.</releaseNotes>
     <copyright>Outcold Solutions. All rights reserved.</copyright>
     <tags>Framework</tags>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="5.0.5" />
+      <dependency id="Rx-Linq" version="2.1.30214.0" />
     </dependencies>
   </metadata>
 </package>
