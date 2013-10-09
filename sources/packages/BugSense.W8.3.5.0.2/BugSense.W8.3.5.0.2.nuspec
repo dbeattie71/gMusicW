@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>BugSense.W8</id>
+    <version>3.5.0.2</version>
+    <title>BugSense plugin for Windows 8</title>
+    <authors>BugSense</authors>
+    <owners>BugSense</owners>
+    <licenseUrl>https://www.bugsense.com/sdklicense</licenseUrl>
+    <projectUrl>http://www.bugsense.com/docs/windows8</projectUrl>
+    <iconUrl>http://www.panicnot.com/image/bugsense-min-in.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>BugSense is the leading crash reporting and quality metrics service for mobile apps. This is the plugin for Windows 8.</description>
+    <releaseNotes>Support for Windows 8 Store apps.</releaseNotes>
+    <copyright>Copyright 2012-13</copyright>
+    <tags>bugsense crash reports windows store quality metrics errors winjs javascript c#</tags>
+  </metadata>
+</package>
