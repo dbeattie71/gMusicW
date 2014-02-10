@@ -36,7 +36,7 @@ namespace OutcoldSolutions.Controls
             {
                 if (scrollViewer.HorizontalScrollMode != ScrollMode.Disabled)
                 {
-                    scrollViewer.ScrollToHorizontalOffset(horizontalOffset);
+                    scrollViewer.ChangeView(horizontalOffset, null, null);
                 }
             }
         }
@@ -65,7 +65,7 @@ namespace OutcoldSolutions.Controls
             {
                 if (scrollViewer.VerticalScrollMode != ScrollMode.Disabled)
                 {
-                    scrollViewer.ScrollToVerticalOffset(verticalOffset);
+                    scrollViewer.ChangeView(null, verticalOffset, null);
                 }
             }
         }

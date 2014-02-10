@@ -623,7 +623,7 @@ namespace OutcoldSolutions.Views
             {
                 var currentVisibility = appBar.Visibility == Visibility.Visible && appBar.IsOpen;
 
-                var isVisible = ApplicationView.Value != ApplicationViewState.Snapped && (this.fullScreenPopup == null || !this.fullScreenPopup.IsOpen) && isLogicalVisible;
+                var isVisible = (this.fullScreenPopup == null || !this.fullScreenPopup.IsOpen) && isLogicalVisible;
 
                 appBar.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
 
