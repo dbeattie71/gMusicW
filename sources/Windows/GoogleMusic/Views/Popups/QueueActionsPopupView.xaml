@@ -15,16 +15,19 @@
             <AppBarButton Icon="Play"
                     Command="{Binding Path=PlayCommand, Mode=OneTime}"
                     x:Uid="QueueActions_Play"
+                    Style="{StaticResource AppBarPopupButtonStyle}"
                     Label="Play selected" />
 
             <AppBarButton Icon="Shuffle"
                     Command="{Binding Path=ShuffleAllCommand, Mode=OneTime}"
                     x:Uid="QueueActions_ShuffleAndPlay"
+                    Style="{StaticResource AppBarPopupButtonStyle}"
                     Label="Shuffle and play" />
             
             <AppBarButton Icon="Add"
                     Command="{Binding Path=AddCommand, Mode=OneTime}"
                     x:Uid="QueueActions_AddToQueue"
+                    Style="{StaticResource AppBarPopupButtonStyle}"
                     Label="Add to queue" />
             
         </StackPanel>

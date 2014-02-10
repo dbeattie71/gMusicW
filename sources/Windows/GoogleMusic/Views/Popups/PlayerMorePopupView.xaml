@@ -52,20 +52,24 @@
 
             <AppBarButton Icon="Setting"
                           Command="{Binding Path=ShowApplicationSettingsCommand}"
+                          Style="{StaticResource AppBarPopupButtonStyle}"
                           Label="App settings"/>
 
             <AppBarToggleButton IsChecked="{Binding Path=BindingModel.IsOnlineMode, Mode=TwoWay}" 
                                 Icon="Globe"
+                                Style="{StaticResource AppBarPopupToggleButtonStyle}"
                                 Label="{Binding Path=BindingModel.ApplicationStateText, Mode=OneWay}"/>
 
             <AppBarToggleButton Icon="Shuffle"
                                 IsChecked="{Binding Path=BindingModel.IsShuffleEnabled, Mode=TwoWay}"
                                 Command="{Binding Path=ShuffleCommand, Mode=OneTime}"
+                                Style="{StaticResource AppBarPopupToggleButtonStyle}"
                                 Label="Shuffle"/>
 
             <AppBarToggleButton Icon="RepeatAll"
                                 IsChecked="{Binding Path=BindingModel.IsRepeatAllEnabled, Mode=TwoWay}"
                                 Command="{Binding Path=RepeatAllCommand, Mode=OneTime}"
+                                Style="{StaticResource AppBarPopupToggleButtonStyle}"
                                 Label="Repeat All"/>
             
         </StackPanel>

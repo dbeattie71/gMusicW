@@ -35,9 +35,8 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <AppBarButton Command="{Binding Path=GoBackCommand, Mode=OneTime}" 
-                                  IsCompact="True"
-                                  Margin="0,3,0,0" 
+                    <Button Command="{Binding Path=GoBackCommand, Mode=OneTime}" 
+                                  Style="{StaticResource NavigationBackButtonSmallStyle}"
                                   Grid.Column="0"
                                   HorizontalAlignment="Left" />
 

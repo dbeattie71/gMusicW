@@ -30,9 +30,10 @@
             
         </StackPanel>
 
-        <AppBarButton Margin="0, -15, 0, 0" 
+        <AppBarButton Margin="0, -15, 10, 0" 
                       Icon="Sync"
                       Label="Update library"
+                      Style="{StaticResource AppBarPopupButtonStyle}"
                       Command="{Binding Path=UpdateLibraryCommand, Mode=OneTime}"
                       Visibility="{Binding Path=BindingModel.MessageText, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}"
                       VerticalAlignment="Center" />
@@ -40,6 +41,7 @@
         <AppBarButton Margin="0, -15, 0, 0"
                       Icon="Find"
                       Label=""
+                      Style="{StaticResource AppBarPopupButtonStyle}"
                       Command="{Binding Path=ShowSearchCommand, Mode=OneTime}"
                       Visibility="{Binding Path=IsShowSearchCommandVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                       VerticalAlignment="Center" />
