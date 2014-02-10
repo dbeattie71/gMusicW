@@ -65,7 +65,8 @@
                                 VerticalAlignment="Stretch"
                                 HorizontalContentAlignment="Right"
                                 VerticalContentAlignment="Stretch"
-                                x:Name="TopAppBarRightZoneRegionContentControl" />
+                                x:Name="TopAppBarRightZoneRegionContentControl"
+                                Visibility="{Binding Path=IsMediumOrLarge, Source={StaticResource AppSizes}, Converter={StaticResource BooleanToVisibilityConverter}}"/>
             </Grid>
         </AppBar>
     </Page.TopAppBar>
@@ -86,7 +87,8 @@
                               Style="{StaticResource ToolBarItemsControlStyle}" />
                 
                 <AppBarSeparator Grid.Column="1" 
-                                 x:Name="AppToolbarSeparator" />
+                                 x:Name="AppToolbarSeparator"
+                                 IsCompact="{Binding Path=IsMediumOrSmall, Source={StaticResource AppSizes}, Mode=OneWay}"/>
                 
                 <ItemsControl Grid.Column="2" 
                               x:Name="ContextButtonsItemsControl" 
@@ -200,7 +202,7 @@
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch"
                     x:Name="RightRegionContentControl"
-                    Visibility="{Binding Path=Content, RelativeSource={RelativeSource Self}, Converter={StaticResource NullToInvisibilityConverter}}"/>
+                    Visibility="{Binding Path=IsMediumOrLarge, Source={StaticResource AppSizes}, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
         <Popup IsLightDismissEnabled="True" 
             x:Name="AppToolBarLeftPopup" 

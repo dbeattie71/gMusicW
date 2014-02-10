@@ -30,7 +30,8 @@
                 <DataTemplate>
                     <AppBarButton Icon="{Binding Path=Symbol, Mode=OneTime, Converter={StaticResource SymbolToIconConverter}}"
                                   Command="{Binding Path=Command}"
-                                  Label="{Binding Path=Title, Mode=OneTime}"/>
+                                  Label="{Binding Path=Title, Mode=OneTime}"
+                                  IsCompact="{Binding Path=IsMediumOrSmall, Source={StaticResource AppSizes}, Mode=OneWay}"/>
                 </DataTemplate>
             </Setter.Value>
         </Setter>

@@ -10,6 +10,10 @@ namespace OutcoldSolutions.Views
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
 
+    using Windows.UI.Core;
+
+    using Newtonsoft.Json.Bson;
+
     using OutcoldSolutions.BindingModels;
     using OutcoldSolutions.Diagnostics;
     using OutcoldSolutions.Presenters;

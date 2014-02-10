@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationBase.cs" />
+    <Compile Include="BindingModels\AppSizes.cs" />
     <Compile Include="BindingModels\BindingModelBase.cs" />
     <Compile Include="BindingModels\DisposableBindingModelBase.cs" />
     <Compile Include="BindingModels\MainFrameBindingModel.cs" />
