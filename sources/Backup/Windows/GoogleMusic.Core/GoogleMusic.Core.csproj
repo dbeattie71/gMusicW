@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5E3DD0FF-8829-433B-BD53-3CEBD7D0946A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OutcoldSolutions.GoogleMusic</RootNamespace>
+    <AssemblyName>OutcoldSolutions.GoogleMusic.Core</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <AllowedReferenceRelatedFileExtensions>.pdb;.pri</AllowedReferenceRelatedFileExtensions>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationException.cs" />
+    <Compile Include="IApplicationResources.cs" />
+    <Compile Include="INotificationService.cs" />
+    <Compile Include="Models\AlbumArtUrlExtensions.cs" />
+    <Compile Include="Models\CachedAlbumArt.cs" />
+    <Compile Include="Models\CachedSong.cs" />
+    <Compile Include="Models\PlaylistsChangeEvent.cs" />
+    <Compile Include="Models\RadioPlaylist.cs" />
+    <Compile Include="Models\SongExtensions.cs" />
+    <Compile Include="Models\SongsUpdatedEvent.cs" />
+    <Compile Include="CommandIcon.cs" />
+    <Compile Include="Models\PlaylistType.cs" />
+    <Compile Include="Models\SettingsChangeEvent.cs" />
+    <Compile Include="Models\SystemPlaylistType.cs" />
+    <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\StringEx.cs" />
+    <Compile Include="Models\SystemPlaylist.cs" />
+    <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\IPlaylist.cs" />
+    <Compile Include="Models\SystemPlaylistTypeExtensions.cs" />
+    <Compile Include="Models\UserPlaylist.cs" />
+    <Compile Include="Models\UserPlaylistEntry.cs" />
+    <Compile Include="Models\Search.cs" />
+    <Compile Include="BindingModels\SongBindingModel.cs" />
+    <Compile Include="Models\Song.cs" />
+    <Compile Include="Models\SongState.cs" />
+    <Compile Include="Models\StreamType.cs" />
+    <Compile Include="Models\UserInfo.cs" />
+    <Compile Include="Models\UserSession.cs" />
+    <Compile Include="ProgressExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AlbumsRepository.cs" />
+    <Compile Include="Repositories\ArtistsRepository.cs" />
+    <Compile Include="Repositories\CachedAlbumArtsRepository.cs" />
+    <Compile Include="Repositories\CachedSongsRepository.cs" />
+    <Compile Include="Repositories\DbContext.cs" />
+    <Compile Include="Repositories\GenresRepository.cs" />
+    <Compile Include="Repositories\IPlaylistRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Repositories\SystemPlaylistsRepository.cs" />
+    <Compile Include="Services\AlbumArtCacheService.cs" />
+    <Compile Include="Services\ApplicationStateService.cs" />
+    <Compile Include="Services\IAlbumArtCacheService.cs" />
+    <Compile Include="Services\InAppPurchases.cs" />
+    <Compile Include="Services\PlaylistsService.cs" />
+    <Compile Include="Web\Models\RadioSeedId.cs" />
+    <Compile Include="Web\RadioWebService.cs" />
+    <Compile Include="Services\SongsService.cs" />
+    <Compile Include="Repositories\SongsRepository.cs" />
+    <Compile Include="Services\AuthentificationService.cs" />
+    <Compile Include="Services\DataProtectService.cs" />
+    <Compile Include="Services\IAuthentificationService.cs" />
+    <Compile Include="Services\IDataProtectService.cs" />
+    <Compile Include="Services\ISettingsService.cs" />
+    <Compile Include="Services\IGoogleAccountService.cs" />
+    <Compile Include="Services\IGoogleMusicSessionService.cs" />
+    <Compile Include="Repositories\UserPlaylistsRepository.cs" />
+    <Compile Include="Repositories\Order.cs" />
+    <Compile Include="Services\Publishers\CurrentSongPublisherService.cs" />
+    <Compile Include="Services\Publishers\GoogleMusicCurrentSongPublisher.cs" />
+    <Compile Include="Services\Publishers\ICurrentSongPublisher.cs" />
+    <Compile Include="Services\Publishers\ICurrentSongPublisherService.cs" />
+    <Compile Include="Services\Publishers\LastFmCurrentSongPublisher.cs" />
+    <Compile Include="Services\Publishers\MediaControlCurrentSongPublisher.cs" />
+    <Compile Include="Services\Publishers\PublisherType.cs" />
+    <Compile Include="Services\SettingsValueChangedEventArgs.cs" />
+    <Compile Include="Services\GoogleMusicSessionService.cs" />
+    <Compile Include="Services\UserPlaylistsService.cs" />
+    <Compile Include="SettingsServiceExtensions.cs" />
+    <Compile Include="Web\CookieContainerWrapper.cs" />
+    <Compile Include="Web\GoogleAccountWebService.cs" />
+    <Compile Include="Web\Models\FetchRadioFeedResp.cs" />
+    <Compile Include="Web\Models\GoogleRadio.cs" />
+    <Compile Include="Web\Models\RadioResp.cs" />
+    <Compile Include="Web\Synchronization\GoogleMusicSongEx.cs" />
+    <Compile Include="Web\Synchronization\GoogleMusicSynchronizationService.cs" />
+    <Compile Include="Web\GoogleMusicWebService.cs" />
+    <Compile Include="Web\IGoogleAccountWebService.cs" />
+    <Compile Include="Web\ICookieManager.cs" />
+    <Compile Include="Web\IGoogleMusicWebService.cs" />
+    <Compile Include="Web\IMediaStreamDownloadService.cs" />
+    <Compile Include="Web\INetworkRandomAccessStream.cs" />
+    <Compile Include="Web\Lastfm\ErrorResp.cs" />
+    <Compile Include="Web\Lastfm\GetSessionResp.cs" />
+    <Compile Include="Web\Lastfm\ILastfmAccountWebService.cs" />
+    <Compile Include="Web\Lastfm\ILastfmWebService.cs" />
+    <Compile Include="Web\Lastfm\LastfmAccountWebService.cs" />
+    <Compile Include="Web\Lastfm\LastfmSession.cs" />
+    <Compile Include="Web\Lastfm\LastfmSessionResponse.cs" />
+    <Compile Include="Web\Lastfm\LastfmWebService.cs" />
+    <Compile Include="Web\Lastfm\TokenResp.cs" />
+    <Compile Include="Web\MediaStreamDownloadService.cs" />
+    <Compile Include="Web\Models\AddPlaylistResp.cs" />
+    <Compile Include="Web\Models\AddSongResp.cs" />
+    <Compile Include="Web\Models\DeletePlaylistResp.cs" />
+    <Compile Include="Web\Models\DeleteSongResp.cs" />
+    <Compile Include="Web\Models\GoogleAuthResponse.cs" />
+    <Compile Include="Web\Models\GoogleMusicPlaylist.cs" />
+    <Compile Include="Web\Models\GoogleMusicPlaylists.cs" />
+    <Compile Include="Web\Models\GoogleMusicSong.cs" />
+    <Compile Include="Web\Models\GoogleMusicSongUrl.cs" />
+    <Compile Include="Web\Models\RatingResp.cs" />
+    <Compile Include="Web\Models\SongIdResp.cs" />
+    <Compile Include="Web\Models\SongRatingResp.cs" />
+    <Compile Include="Web\Models\StatusResp.cs" />
+    <Compile Include="Web\Models\CommonResponse.cs" />
+    <Compile Include="Web\PlaylistsWebService.cs" />
+    <Compile Include="Web\SongsWebService.cs" />
+    <Compile Include="Web\Synchronization\InitialSynchronization.cs" />
+    <Compile Include="Web\Synchronization\SongsUpdateStatus.cs" />
+    <Compile Include="Web\Synchronization\UserPlaylistsUpdateStatus.cs" />
+    <Compile Include="Web\WebRequestException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="BugSense-W8">
+      <HintPath>..\..\packages\BugSense.W8.3.6.0.1\lib\netcore45\BugSense-W8.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.8\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OutcoldSolutions.SQLite, Version=1.1.30513.33825, Culture=neutral, PublicKeyToken=b9b87f97060f149d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\OutcoldSolutions.SQLite.1.1.30513.1\lib\win\OutcoldSolutions.SQLite.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, version=11.0">
+      <Name>Microsoft Visual C++ Runtime Package</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.WinRT, Version=3.8.1">
+      <Name>SQLite for Windows Runtime %28SQLite.WinRT, Version=3.8.1%29</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OutcoldSolutions.Framework\OutcoldSolutions.Framework.csproj">
+      <Project>{1b2dc586-ab06-48cd-ad91-2d699a43725e}</Project>
+      <Name>OutcoldSolutions.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OutcoldSolutions.Presentation\OutcoldSolutions.Presentation.csproj">
+      <Project>{8c64ae2d-9131-44e9-83a4-d71b423baf1d}</Project>
+      <Name>OutcoldSolutions.Presentation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BugSense\BugSense - SDK License Agreement.txt" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
+    <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28x86%29|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug %28x86%29\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28x86%29|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug %28x86%29\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28x86%29|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug %28x86%29\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug %28x86%29|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug %28x86%29\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28x86%29|AnyCPU'">
+    <OutputPath>bin\Release %28x86%29\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28x86%29|ARM'">
+    <OutputPath>bin\ARM\Release %28x86%29\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28x86%29|x64'">
+    <OutputPath>bin\x64\Release %28x86%29\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28x86%29|x86'">
+    <OutputPath>bin\x86\Release %28x86%29\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

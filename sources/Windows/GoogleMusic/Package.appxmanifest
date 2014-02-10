@@ -1,28 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="47286outcoldman.gMusic" Publisher="CN=3943AC93-78E3-4C62-BC48-BB69A8AB1704" Version="2.2.14.89" />
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
+  <Identity Name="47286outcoldman.gMusic" Publisher="CN=3943AC93-78E3-4C62-BC48-BB69A8AB1704" Version="2.3.14.89" />
   <Properties>
     <DisplayName>gMusicW</DisplayName>
     <PublisherDisplayName>OutcoldSolutions</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
-    <OSMinVersion>6.2.1</OSMinVersion>
-    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
   </Prerequisites>
   <Resources>
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="OutcoldSolutions.GoogleMusic.App">
-      <VisualElements DisplayName="gMusicW" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="gMusicW - best Unofficial Google Music Player provided by OutcoldSolution." ForegroundText="light" BackgroundColor="#207CB0">
-        <DefaultTile ShowName="logoOnly" WideLogo="Assets\WideLogo.png" />
-        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#207CB0" />
-        <InitialRotationPreference>
-          <Rotation Preference="landscape" />
-          <Rotation Preference="landscapeFlipped" />
-        </InitialRotationPreference>
-      </VisualElements>
       <Extensions>
         <Extension Category="windows.backgroundTasks" EntryPoint="OutcoldSolutions.GoogleMusic.App">
           <BackgroundTasks>
@@ -31,6 +23,18 @@
         </Extension>
         <Extension Category="windows.search" EntryPoint="OutcoldSolutions.GoogleMusic.App" />
       </Extensions>
+      <m2:VisualElements DisplayName="gMusicW" Description="gMusicW - best Unofficial Google Music Player provided by OutcoldSolution." BackgroundColor="#207CB0" ForegroundText="light" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png">
+        <m2:DefaultTile Wide310x150Logo="Assets\WideLogo.png">
+          <m2:ShowNameOnTiles>
+            <m2:ShowOn Tile="square150x150Logo" />
+          </m2:ShowNameOnTiles>
+        </m2:DefaultTile>
+        <m2:InitialRotationPreference>
+          <m2:Rotation Preference="landscape" />
+          <m2:Rotation Preference="landscapeFlipped" />
+        </m2:InitialRotationPreference>
+        <m2:SplashScreen BackgroundColor="#207CB0" Image="Assets\SplashScreen.png" />
+      </m2:VisualElements>
     </Application>
   </Applications>
   <Capabilities>

@@ -112,8 +112,7 @@ namespace OutcoldSolutions.GoogleMusic.Views
                         AdUnitId = "156438",
                         Width = 300,
                         Height = 250,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        UseStaticAnchor = true
+                        HorizontalAlignment = HorizontalAlignment.Center
                     };
 
                     this.adControl.ErrorOccurred += this.AdControlOnErrorOccurred;

@@ -74,8 +74,7 @@ namespace OutcoldSolutions.GoogleMusic.Services
                         ApplicationId = "8eb9e14b-2133-40db-9500-14eff7c05aab",
                         AdUnitId = "111663",
                         Width = 160,
-                        Height = 600,
-                        UseStaticAnchor = true
+                        Height = 600
                     };
 
                     this.adControl.ErrorOccurred += this.AdControlOnErrorOccurred;
