@@ -100,8 +100,6 @@ namespace OutcoldSolutions.Views
 
         private IView currentView;
 
-        private bool bottomToolWasOpen;
-
         private Popup fullScreenPopup;
 
         /// <summary>
@@ -127,44 +125,6 @@ namespace OutcoldSolutions.Views
             this.BottomAppBar.SizeChanged += (sender, args) =>
                 {
                     this.BottomAppBarFakeBorder.Height = args.NewSize.Height;
-                };
-
-            this.SizeChanged += (sender, args) =>
-                {
-                    if (ApplicationView.Value == ApplicationViewState.Snapped)
-                    {
-                        this.FullViewGrid.Visibility = Visibility.Collapsed;
-                        this.SnappedViewContentControl.Visibility = Visibility.Visible;
-
-                        var control = this.SnappedViewContentControl.Content as Control;
-                        if (control != null)
-                        {
-                            control.Focus(FocusState.Programmatic);
-                        }
-
-                        this.bottomToolWasOpen = this.BottomAppBar.IsOpen;
-                    }
-                    else
-                    {
-                        this.FullViewGrid.Visibility = Visibility.Visible;
-                        this.SnappedViewContentControl.Visibility = Visibility.Collapsed;
-
-                        var control = this.ContentControl.Content as Control;
-                        if (control != null)
-                        {
-                            control.Focus(FocusState.Programmatic);
-                        }
-                    }
-
-                    this.UpdateFullScreenPopupSize();
-                    this.UpdateBottomAppBarVisibility();
-                    this.UpdateTopAppBarVisibility();
-
-                    if (ApplicationView.Value != ApplicationViewState.Snapped && this.bottomToolWasOpen)
-                    {
-                        this.BottomAppBar.IsOpen = bottomToolWasOpen;
-                        this.bottomToolWasOpen = false;
-                    }
                 };
         }
 
@@ -285,10 +245,6 @@ namespace OutcoldSolutions.Views
                     this.SetLinksRegion(content);
                     break;
 
-                case MainFrameRegion.SnappedView:
-                    this.SetSnappedRegion(content);
-                    break;
-
                 case MainFrameRegion.TopAppBarRightZone:
                     this.SetTopAppBarRightZoneRegion(content);
                     break;
@@ -339,10 +295,6 @@ namespace OutcoldSolutions.Views
 
                 case MainFrameRegion.Links:
                     this.LinksContentControl.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
-                    break;
-
-                case MainFrameRegion.SnappedView:
-                    this.SnappedViewContentControl.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
                     break;
 
                 case MainFrameRegion.TopAppBarRightZone:
@@ -611,11 +563,6 @@ namespace OutcoldSolutions.Views
         private void SetLinksRegion(object content)
         {
             this.LinksContentControl.Content = content;
-        }
-
-        private void SetSnappedRegion(object content)
-        {
-            this.SnappedViewContentControl.Content = content;
         }
 
         private void SetTopAppBarRightZoneRegion(object content)

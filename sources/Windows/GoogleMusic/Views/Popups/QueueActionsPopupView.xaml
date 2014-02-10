@@ -12,20 +12,20 @@
     <Border Background="{StaticResource AppBarBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Margin="30, 20, 30, 0" >
 
-            <Button Style="{StaticResource PlayPopupMenuButtonStyle}" 
+            <AppBarButton Icon="Play"
                     Command="{Binding Path=PlayCommand, Mode=OneTime}"
                     x:Uid="QueueActions_Play"
-                    AutomationProperties.Name="Play selected" />
+                    Label="Play selected" />
 
-            <Button Style="{StaticResource ShufflePopupMenuButtonStyle}" 
+            <AppBarButton Icon="Shuffle"
                     Command="{Binding Path=ShuffleAllCommand, Mode=OneTime}"
                     x:Uid="QueueActions_ShuffleAndPlay"
-                    AutomationProperties.Name="Shuffle and play" />
+                    Label="Shuffle and play" />
             
-            <Button Style="{StaticResource AddPopupMenuButton}" 
+            <AppBarButton Icon="Add"
                     Command="{Binding Path=AddCommand, Mode=OneTime}"
                     x:Uid="QueueActions_AddToQueue"
-                    AutomationProperties.Name="Add to queue" />
+                    Label="Add to queue" />
             
         </StackPanel>
     </Border>

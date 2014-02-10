@@ -27,15 +27,14 @@
                     </StackPanel>
                     <TextBlock Text="{Binding Path=Playlist.Year, Mode=OneTime}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" Visibility="{Binding Path=BindingModel.Playlist.Year, Converter={StaticResource ValueToInvisibilityConverter}, ConverterParameter=0}"/>
                 </StackPanel>
-                <Button Grid.Column="1"
-                        Width="65"
-                        Height="65"
-                        Style="{StaticResource PlayAppBarButtonStyle}"  
-                        AutomationProperties.Name=""
-                        VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right"
-                        Command="{Binding Path=PlayCommand, Mode=OneTime}"
-                        CommandParameter="{Binding Path=Playlist, Mode=OneTime}"/>
+                <AppBarButton Grid.Column="1"
+                            IsCompact="True"
+                            Icon="Play"  
+                            Label=""
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            Command="{Binding Path=PlayCommand, Mode=OneTime}"
+                            CommandParameter="{Binding Path=Playlist, Mode=OneTime}"/>
             </Grid>
         </Border>
     </DataTemplate>
@@ -63,11 +62,10 @@
                         <TextBlock Text=")" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
                     </StackPanel>
                 </StackPanel>
-                <Button Grid.Column="1"
-                        Width="65"
-                        Height="65"
-                        Style="{StaticResource PlayAppBarButtonStyle}"  
-                        AutomationProperties.Name=""
+                <AppBarButton Grid.Column="1"
+                       IsCompact="True"
+                       Icon="Play"  
+                       Label=""
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Right"
                         Command="{Binding Path=PlayCommand, Mode=OneTime}"
@@ -95,11 +93,10 @@
                         <TextBlock Text=")" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
                     </StackPanel>
                 </StackPanel>
-                <Button Grid.Column="1"
-                        Width="65"
-                        Height="65"
-                        Style="{StaticResource PlayAppBarButtonStyle}"  
-                        AutomationProperties.Name=""
+                <AppBarButton Grid.Column="1"
+                       IsCompact="True"
+                       Icon="Play"  
+                       Label=""
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Right"
                         Command="{Binding Path=PlayCommand, Mode=OneTime}"
@@ -127,11 +124,10 @@
                         <TextBlock Text=")" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
                     </StackPanel>
                 </StackPanel>
-                <Button Grid.Column="1"
-                        Width="65"
-                        Height="65"
-                        Style="{StaticResource PlayAppBarButtonStyle}"  
-                        AutomationProperties.Name=""
+                <AppBarButton Grid.Column="1"
+                       IsCompact="True"
+                       Icon="Play"  
+                       Label=""
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Right"
                         Command="{Binding Path=PlayCommand, Mode=OneTime}"
@@ -159,11 +155,10 @@
                         <TextBlock Text=")" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
                     </StackPanel>
                 </StackPanel>
-                <Button Grid.Column="1"
-                        Width="65"
-                        Height="65"
-                        Style="{StaticResource PlayAppBarButtonStyle}"  
-                        AutomationProperties.Name=""
+                <AppBarButton Grid.Column="1"
+                       IsCompact="True"
+                       Icon="Play"  
+                       Label=""
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Right"
                         Command="{Binding Path=PlayCommand, Mode=OneTime}"
@@ -185,11 +180,10 @@
                 <StackPanel Grid.Column="1" Margin="0,15,10,0">
                     <TextBlock Text="{Binding Path=Playlist.Title, Mode=OneWay}"  Style="{StaticResource BodyTextStyle}" TextWrapping="Wrap"  TextTrimming="WordEllipsis" MaxHeight="40"/>
                 </StackPanel>
-                <Button Grid.Column="1"
-                        Width="65"
-                        Height="65"
-                        Style="{StaticResource PlayAppBarButtonStyle}"  
-                        AutomationProperties.Name=""
+                <AppBarButton Grid.Column="1"
+                       IsCompact="True"
+                       Icon="Play"  
+                       Label=""
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Right"
                         Command="{Binding Path=PlayCommand, Mode=OneTime}"

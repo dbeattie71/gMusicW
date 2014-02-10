@@ -117,7 +117,6 @@
     <Compile Include="BindingModels\LinksRegionBindingModel.cs" />
     <Compile Include="BindingModels\Settings\CachedSongBindingModel.cs" />
     <Compile Include="BindingModels\Settings\OfflineCacheViewBindingModel.cs" />
-    <Compile Include="BindingModels\SnappedPlayerBindingModel.cs" />
     <Compile Include="BindingModels\PlaylistPageViewBindingModel.cs" />
     <Compile Include="BindingModels\PlaylistResultBindingModel.cs" />
     <Compile Include="BindingModels\PlaylistsGroupBindingModel.cs" />
@@ -172,7 +171,6 @@
     <Compile Include="Presenters\Popups\RadioEditPopupViewPresenter.cs" />
     <Compile Include="Presenters\RadioPageViewPresenter.cs" />
     <Compile Include="Presenters\Settings\OfflineCacheViewPresenter.cs" />
-    <Compile Include="Presenters\SnappedPlayerViewPresenter.cs" />
     <Compile Include="Presenters\Popups\PlayerMorePopupViewPresenter.cs" />
     <Compile Include="Presenters\Settings\AppSettingsViewPresenter.cs" />
     <Compile Include="Presenters\Settings\UpgradeViewPresenter.cs" />
@@ -288,9 +286,6 @@
     <Compile Include="Views\Settings\UpgradeView.xaml.cs">
       <DependentUpon>UpgradeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SnappedPlayerView.xaml.cs">
-      <DependentUpon>SnappedPlayerView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
     </Compile>
@@ -359,11 +354,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Common\Buttons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
     <Page Include="Common\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -476,10 +466,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\UpgradeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SnappedPlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

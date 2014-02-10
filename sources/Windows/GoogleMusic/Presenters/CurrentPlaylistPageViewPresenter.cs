@@ -10,6 +10,8 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Windows.UI.Xaml.Controls;
+
     using OutcoldSolutions.Diagnostics;
     using OutcoldSolutions.GoogleMusic.BindingModels;
     using OutcoldSolutions.GoogleMusic.Controls;
@@ -242,11 +244,11 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
         {
             if (this.stateService.IsOnline())
             {
-                yield return new CommandMetadata(CommandIcon.Add, this.resources.GetString("Toolbar_PlaylistButton"), this.AddToPlaylistCommand);
-                yield return new CommandMetadata(CommandIcon.MusicInfo, this.resources.GetString("Toolbar_StartRadio"), this.StartRadioCommand);
+                yield return new CommandMetadata(Symbol.Add, this.resources.GetString("Toolbar_PlaylistButton"), this.AddToPlaylistCommand);
+                yield return new CommandMetadata(Symbol.MusicInfo, this.resources.GetString("Toolbar_StartRadio"), this.StartRadioCommand);
             }
 
-            yield return new CommandMetadata(CommandIcon.Remove, this.resources.GetString("Toolbar_QueueButton"), this.RemoveSelectedSongCommand);
+            yield return new CommandMetadata(Symbol.Remove, this.resources.GetString("Toolbar_QueueButton"), this.RemoveSelectedSongCommand);
 
             if (!this.playQueueService.IsRadio)
             {
@@ -254,12 +256,12 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
                 {
                     if (this.stateService.IsOnline())
                     {
-                        yield return new CommandMetadata(CommandIcon.Pin, this.resources.GetString("Toolbar_KeepLocal"), this.DownloadCommand);
+                        yield return new CommandMetadata(Symbol.Pin, this.resources.GetString("Toolbar_KeepLocal"), this.DownloadCommand);
                     }
                 }
                 else
                 {
-                    yield return new CommandMetadata(CommandIcon.UnPin, this.resources.GetString("Toolbar_RemoveLocal"), this.UnPinCommand);
+                    yield return new CommandMetadata(Symbol.UnPin, this.resources.GetString("Toolbar_RemoveLocal"), this.UnPinCommand);
                 }
             }
         }

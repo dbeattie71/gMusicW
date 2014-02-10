@@ -30,16 +30,18 @@
             
         </StackPanel>
 
-        <Button Margin="0, -15, 0, 0" Style="{StaticResource RefreshAppBarButtonStyle}" 
-                AutomationProperties.Name="Update library"
-                Command="{Binding Path=UpdateLibraryCommand, Mode=OneTime}"
-                Visibility="{Binding Path=BindingModel.MessageText, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}"
-                VerticalAlignment="Center" />
+        <AppBarButton Margin="0, -15, 0, 0" 
+                      Icon="Sync"
+                      Label="Update library"
+                      Command="{Binding Path=UpdateLibraryCommand, Mode=OneTime}"
+                      Visibility="{Binding Path=BindingModel.MessageText, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}"
+                      VerticalAlignment="Center" />
         
-        <Button Margin="0, -15, 0, 0" Style="{StaticResource SearchPopupMenuButtonStyle}" 
-                AutomationProperties.Name=""
-                Command="{Binding Path=ShowSearchCommand, Mode=OneTime}"
-                Visibility="{Binding Path=IsShowSearchCommandVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                VerticalAlignment="Center" />
+        <AppBarButton Margin="0, -15, 0, 0"
+                      Icon="Find"
+                      Label=""
+                      Command="{Binding Path=ShowSearchCommand, Mode=OneTime}"
+                      Visibility="{Binding Path=IsShowSearchCommandVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                      VerticalAlignment="Center" />
     </StackPanel>
 </views:ViewBase>

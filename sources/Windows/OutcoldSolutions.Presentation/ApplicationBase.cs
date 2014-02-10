@@ -55,6 +55,13 @@ namespace OutcoldSolutions
         /// </param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
+#if DEBUG
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                this.DebugSettings.EnableFrameRateCounter = true;
+            }
+#endif
+
             this.InitializeInternal();
 
             base.OnLaunched(args);

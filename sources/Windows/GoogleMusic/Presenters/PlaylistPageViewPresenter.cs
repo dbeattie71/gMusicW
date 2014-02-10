@@ -7,6 +7,8 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
     using System.Collections.Generic;
     using System.Linq;
 
+    using Windows.UI.Xaml.Controls;
+
     using OutcoldSolutions.GoogleMusic.Models;
     using OutcoldSolutions.GoogleMusic.Services;
     using OutcoldSolutions.GoogleMusic.Views;
@@ -39,7 +41,7 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
             {
                 commandMetadatas = new List<CommandMetadata>(commandMetadatas)
                                        {
-                                           new CommandMetadata(CommandIcon.Remove, this.resources.GetString("Toolbar_PlaylistButton"), this.RemoveFromPlaylistCommand)
+                                           new CommandMetadata(Symbol.Remove, this.resources.GetString("Toolbar_PlaylistButton"), this.RemoveFromPlaylistCommand)
                                        };
             }
 

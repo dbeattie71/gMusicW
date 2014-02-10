@@ -5,6 +5,8 @@ namespace OutcoldSolutions
 {
     using System;
 
+    using Windows.UI.Xaml.Controls;
+
     /// <summary>
     /// The command metadata.
     /// </summary>
@@ -13,35 +15,30 @@ namespace OutcoldSolutions
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandMetadata"/> class.
         /// </summary>
-        /// <param name="iconName">
+        /// <param name="symbol">
         /// The icon name.
         /// </param>
         /// <param name="command">
         /// The command.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// If <paramref name="iconName"/> or <paramref name="command"/> are null.
+        /// If <paramref name="symbol"/> or <paramref name="command"/> are null.
         /// </exception>
-        public CommandMetadata(string iconName, DelegateCommand command)
+        public CommandMetadata(Symbol symbol, DelegateCommand command)
         {
-            if (iconName == null)
-            {
-                throw new ArgumentNullException("iconName");
-            }
-
             if (command == null)
             {
                 throw new ArgumentNullException("command");
             }
 
-            this.IconName = iconName;
+            this.Symbol = symbol;
             this.Command = command;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandMetadata"/> class.
         /// </summary>
-        /// <param name="iconName">
+        /// <param name="symbol">
         /// The icon name.
         /// </param>
         /// <param name="title">
@@ -53,8 +50,8 @@ namespace OutcoldSolutions
         /// <exception cref="ArgumentNullException">
         /// If <paramref name="iconName"/> or <paramref name="command"/> or <paramref name="title"/> are null.
         /// </exception>
-        public CommandMetadata(string iconName, string title, DelegateCommand command)
-            : this(iconName, command)
+        public CommandMetadata(Symbol symbol, string title, DelegateCommand command)
+            : this(symbol, command)
         {
             if (title == null)
             {
@@ -67,7 +64,7 @@ namespace OutcoldSolutions
         /// <summary>
         /// Gets or sets the icon name.
         /// </summary>
-        public string IconName { get; set; }
+        public Symbol Symbol { get; set; }
 
         /// <summary>
         /// Gets or sets the title.

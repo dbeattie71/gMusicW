@@ -382,14 +382,6 @@
   <data name="Player_QueueEmpty.Text" xml:space="preserve">
     <value>Queue is Empty</value>
   </data>
-  <data name="Player_RepeatAllButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Repeat All</value>
-    <comment>12.png</comment>
-  </data>
-  <data name="Player_ShuffleButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Shuffle</value>
-    <comment>12.png</comment>
-  </data>
   <data name="Player_VolumeTitle.Text" xml:space="preserve">
     <value>Volume</value>
     <comment>12.png</comment>

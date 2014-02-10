@@ -113,12 +113,12 @@
     <Compile Include="BindingModels\DisposableBindingModelBase.cs" />
     <Compile Include="BindingModels\MainFrameBindingModel.cs" />
     <Compile Include="CommandMetadata.cs" />
-    <Compile Include="Controls\AppBarToggleButton.cs" />
     <Compile Include="Controls\ItemsControlExtensions.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringToResourceConverter.cs" />
     <Compile Include="Converters\InvertBooleanConverter.cs" />
+    <Compile Include="Converters\SymbolToIconConverter.cs" />
     <Compile Include="Converters\ValueToBooleanConverter.cs" />
     <Compile Include="Converters\ValueToVisibilityConverter.cs" />
     <Compile Include="Converters\VisibilityConverterBase.cs" />

@@ -35,11 +35,11 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <Button Command="{Binding Path=GoBackCommand, Mode=OneTime}" 
-                            Margin="0,3,0,0" 
-                            Grid.Column="0" 
-                            Style="{StaticResource SettingsBackButtonStyle}" 
-                            HorizontalAlignment="Left" />
+                    <AppBarButton Command="{Binding Path=GoBackCommand, Mode=OneTime}" 
+                                  IsCompact="True"
+                                  Margin="0,3,0,0" 
+                                  Grid.Column="0"
+                                  HorizontalAlignment="Left" />
 
                     <TextBlock Grid.Column="1" 
                                Style="{StaticResource SettingTitleTextStyle}" 

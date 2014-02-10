@@ -10,6 +10,8 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
     using System.Reactive.Linq;
     using System.Threading.Tasks;
 
+    using Windows.UI.Xaml.Controls;
+
     using OutcoldSolutions.Diagnostics;
     using OutcoldSolutions.GoogleMusic.BindingModels;
     using OutcoldSolutions.GoogleMusic.Models;
@@ -122,16 +124,16 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
 
         protected virtual IEnumerable<CommandMetadata> GetContextCommands()
         {
-            yield return new CommandMetadata(CommandIcon.OpenWith, this.resources.GetString("Toolbar_QueueButton"), this.QueueCommand);
+            yield return new CommandMetadata(Symbol.OpenWith, this.resources.GetString("Toolbar_QueueButton"), this.QueueCommand);
             if (this.stateService.IsOnline() && 
                 (this.BindingModel.SelectedItems.Any(x => x.Playlist.OfflineSongsCount != x.Playlist.SongsCount)
                 || this.BindingModel.SelectedItems.All(x => x.Playlist.SongsCount == 0)))
             {
-                yield return new CommandMetadata(CommandIcon.Pin, this.resources.GetString("Toolbar_KeepLocal"), this.DownloadCommand);
+                yield return new CommandMetadata(Symbol.Pin, this.resources.GetString("Toolbar_KeepLocal"), this.DownloadCommand);
             }
             else
             {
-                yield return new CommandMetadata(CommandIcon.UnPin, this.resources.GetString("Toolbar_RemoveLocal"), this.UnPinCommand);
+                yield return new CommandMetadata(Symbol.UnPin, this.resources.GetString("Toolbar_RemoveLocal"), this.UnPinCommand);
             }
         }
 

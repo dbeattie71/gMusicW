@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:views="using:OutcoldSolutions.Views"
-    xmlns:controls="using:OutcoldSolutions.Controls"
     mc:Ignorable="d"
     Height="360"
     Width="260">
@@ -51,26 +50,23 @@
 
             </Grid>
 
-            <Button Style="{StaticResource SettingsPopupMenuButtonStyle}"
-                    Command="{Binding Path=ShowApplicationSettingsCommand}"
-                    AutomationProperties.Name="App settings" />
-            
-            <controls:AppBarToggleButton IsChecked="{Binding Path=BindingModel.IsOnlineMode, Mode=TwoWay}" 
-                                         Style="{StaticResource GlobePopupMenuButtonStyle}"
-                                         AutomationProperties.Name="{Binding Path=BindingModel.ApplicationStateText}"
-                                         Width="260"/>
+            <AppBarButton Icon="Setting"
+                          Command="{Binding Path=ShowApplicationSettingsCommand}"
+                          Label="App settings"/>
 
-            <controls:AppBarToggleButton Style="{StaticResource ShufflePopupMenuButtonStyle}" 
-                                         IsChecked="{Binding Path=BindingModel.IsShuffleEnabled, Mode=TwoWay}"
-                                         Command="{Binding Path=ShuffleCommand, Mode=OneTime}"
-                                         AutomationProperties.Name="Player_Shuffle"
-                                         x:Uid="Player_ShuffleButton"/>
-            
-            <controls:AppBarToggleButton Style="{StaticResource RepeatAllPopupMenuButtonStyle}" 
-                                         IsChecked="{Binding Path=BindingModel.IsRepeatAllEnabled, Mode=TwoWay}"
-                                         Command="{Binding Path=RepeatAllCommand, Mode=OneTime}"
-                                         x:Uid="Player_RepeatAllButton"
-                                         AutomationProperties.Name="Player_RepeatAll"/>
+            <AppBarToggleButton IsChecked="{Binding Path=BindingModel.IsOnlineMode, Mode=TwoWay}" 
+                                Icon="Globe"
+                                Label="{Binding Path=BindingModel.ApplicationStateText, Mode=OneWay}"/>
+
+            <AppBarToggleButton Icon="Shuffle"
+                                IsChecked="{Binding Path=BindingModel.IsShuffleEnabled, Mode=TwoWay}"
+                                Command="{Binding Path=ShuffleCommand, Mode=OneTime}"
+                                Label="Shuffle"/>
+
+            <AppBarToggleButton Icon="RepeatAll"
+                                IsChecked="{Binding Path=BindingModel.IsRepeatAllEnabled, Mode=TwoWay}"
+                                Command="{Binding Path=RepeatAllCommand, Mode=OneTime}"
+                                Label="Repeat All"/>
             
         </StackPanel>
     </Border>

@@ -9,6 +9,8 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Windows.UI.Xaml.Controls;
+
     using OutcoldSolutions.GoogleMusic.BindingModels;
     using OutcoldSolutions.GoogleMusic.Models;
     using OutcoldSolutions.GoogleMusic.Services;
@@ -50,7 +52,7 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
 
         protected override IEnumerable<CommandMetadata> GetViewCommands()
         {
-            yield return new CommandMetadata(CommandIcon.Page, this.resources.GetString("Toolbar_CreateButton"), this.AddPlaylistCommand);
+            yield return new CommandMetadata(Symbol.Page, this.resources.GetString("Toolbar_CreateButton"), this.AddPlaylistCommand);
         }
 
         protected async override Task LoadPlaylistsAsync()
@@ -77,8 +79,8 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
 
             if (this.stateService.IsOnline())
             {
-                yield return new CommandMetadata(CommandIcon.Edit, this.resources.GetString("Toolbar_RenameButton"), this.EditPlaylistCommand);
-                yield return new CommandMetadata(CommandIcon.Delete, this.resources.GetString("Toolbar_DeleteButton"), this.DeletePlaylistsCommand);
+                yield return new CommandMetadata(Symbol.Edit, this.resources.GetString("Toolbar_RenameButton"), this.EditPlaylistCommand);
+                yield return new CommandMetadata(Symbol.Delete, this.resources.GetString("Toolbar_DeleteButton"), this.DeletePlaylistsCommand);
             }
         }
 
