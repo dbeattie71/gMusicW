@@ -9,35 +9,38 @@
     d:DesignHeight="100"
     d:DesignWidth="800">
 
-    <Grid Width="610" Height="100">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <Slider Grid.Row="0"
-                Width="610"
+                HorizontalAlignment="Stretch"
                 IsThumbToolTipEnabled="False"
                 Value="{Binding Path=BindingModel.CurrentPosition, Mode=TwoWay}"
                 Maximum="{Binding Path=BindingModel.TotalSeconds, Mode=OneWay}" 
                 Visibility="{Binding Path=BindingModel.CurrentSong, Mode=OneWay, Converter={StaticResource NullToInvisibilityConverter}}"
                 Canvas.ZIndex="200"/>
 
-        <Grid Height="90" Width="610" Grid.Row="1">
+        <Grid Height="Auto" Grid.Row="1">
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="90" />
-                <ColumnDefinition Width="110" />
-                <ColumnDefinition Width="110" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <Button Height="80" 
                     Width="80" 
-                    Margin="0, 0, 10, 5"
-                    Grid.Column="0" 
+                    Margin="0, 0, 5, 10"
+                    Grid.Column="0"
+                    Grid.Row="1"
                     Command="{Binding Path=NavigateToQueueView, Mode=OneTime}">
                 <Button.Template>
                     <ControlTemplate>
@@ -50,7 +53,11 @@
                 </Button.Template>
             </Button>
 
-            <Button Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Margin="5, 0, 20, 10" 
+            <Button Grid.Row="1"
+                    Grid.Column="1" 
+                    Grid.ColumnSpan="2"
+                    x:Name="SongMetadataPanel"
+                    Margin="5, 0, 20, 10" 
                     Command="{Binding Path=NavigateToQueueView, Mode=OneTime}"
                     Canvas.ZIndex="50"
                     HorizontalAlignment="Left"
@@ -58,7 +65,7 @@
                     Visibility="{Binding Path=BindingModel.CurrentSong, Mode=OneWay, Converter={StaticResource NullToInvisibilityConverter}}">
                 <Button.Template>
                     <ControlTemplate>
-                        <Grid Width="495" >
+                        <Grid MaxWidth="495" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -85,10 +92,13 @@
                 </Button.Template>
             </Button>
 
-            <StackPanel Grid.Column="1" 
-                        Margin="5, 0, 0, 0"
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1" 
+                        Margin="5, 0, 10, 5"
                         Orientation="Vertical"
-                        Visibility="{Binding Path=BindingModel.CurrentSong, Mode=OneWay, Converter={StaticResource NullToInvisibilityConverter}}">
+                        x:Name="SongProgressPanel"
+                        Visibility="{Binding Path=BindingModel.CurrentSong, Mode=OneWay, Converter={StaticResource NullToInvisibilityConverter}}"
+                        Canvas.ZIndex="101">
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Style="{StaticResource SmallTextStyle}" Text="{Binding Path=BindingModel.CurrentPosition, Mode=OneWay, Converter={StaticResource DoubleToTimeConverter}}" />
@@ -96,7 +106,9 @@
                     <TextBlock Style="{StaticResource SmallTextStyle}" Text="{Binding Path=BindingModel.TotalSeconds, Converter={StaticResource DoubleToTimeConverter}, Mode=OneWay}" />
                 </StackPanel>
 
-                <StackPanel Margin="0, 10, 0, 0" Orientation="Horizontal" Visibility="{Binding Path=BindingModel.IsDownloaded, Mode=OneWay, Converter={StaticResource BooleanToInvisibilityConverter}}">
+                <StackPanel Margin="0, 10, 0, 0" 
+                            Orientation="Horizontal" 
+                            Visibility="{Binding Path=BindingModel.IsDownloaded, Mode=OneWay, Converter={StaticResource BooleanToInvisibilityConverter}}">
                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource SmallTextStyle}" x:Uid="Player_BufferingLabel">Buffering (</TextBlock>
                     <TextBlock HorizontalAlignment="Left" Style="{StaticResource SmallTextStyle}" Margin="7, 0, 0, 0">(</TextBlock>
                     <TextBlock Style="{StaticResource SmallTextStyle}"  
@@ -107,40 +119,42 @@
                 </StackPanel>
             </StackPanel>
 
-            <AppBarButton Icon="Previous"
+            <StackPanel Grid.Row="1"
+                        Grid.Column="2"
+                        Orientation="Horizontal">
+                <AppBarButton Icon="Previous"
                     Command="{Binding Path=SkipBackCommand, Mode=OneTime}"
-                    Margin="10, 0, 0, 0"
                     VerticalAlignment="Top"
-                    AutomationProperties.Name=""
-                    Grid.Column="2"
+                    IsCompact="{Binding Path=IsMediumOrSmall, Source={StaticResource AppSizes}, Mode=OneWay}"
+                    Label=""
                     Canvas.ZIndex="100"/>
-            <AppBarButton Icon="Play"
+                <AppBarButton Icon="Play"
                     Visibility="{Binding Path=BindingModel.IsPlaying, Mode=OneWay, Converter={StaticResource BooleanToInvisibilityConverter}}" 
                     Command="{Binding Path=PlayCommand, Mode=OneTime}"
                     VerticalAlignment="Top"
-                    AutomationProperties.Name=""
-                    Grid.Column="3"
+                    IsCompact="{Binding Path=IsMediumOrSmall, Source={StaticResource AppSizes}, Mode=OneWay}"
+                    Label=""
                     Canvas.ZIndex="100"/>
-            <AppBarButton Icon="Pause"
+                <AppBarButton Icon="Pause"
                     Visibility="{Binding Path=BindingModel.IsPlaying, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" 
                     Command="{Binding Path=PauseCommand, Mode=OneTime}"
                     VerticalAlignment="Top"
-                    AutomationProperties.Name=""
-                    Grid.Column="3"
+                    IsCompact="{Binding Path=IsMediumOrSmall, Source={StaticResource AppSizes}, Mode=OneWay}"
+                    Label=""
                     Canvas.ZIndex="100"/>
-            <AppBarButton Icon="Next"
+                <AppBarButton Icon="Next"
                     Command="{Binding Path=SkipAheadCommand, Mode=OneTime}"
                     VerticalAlignment="Top"
-                    AutomationProperties.Name=""
-                    Grid.Column="4"
+                    IsCompact="{Binding Path=IsMediumOrSmall, Source={StaticResource AppSizes}, Mode=OneWay}"
+                    Label=""
                     Canvas.ZIndex="100"/>
 
-            <AppBarButton Icon="More"
+                <AppBarButton Icon="More"
                     Command="{Binding Path=ShowMoreCommand, Mode=OneTime}"
-                    AutomationProperties.Name=""
-                    Grid.Column="5"
+                    IsCompact="{Binding Path=IsMediumOrSmall, Source={StaticResource AppSizes}}"
+                    Label=""
                     Canvas.ZIndex="100"/>
-
+            </StackPanel>
         </Grid>
 
     </Grid>

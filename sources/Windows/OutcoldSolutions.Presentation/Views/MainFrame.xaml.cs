@@ -41,6 +41,11 @@ namespace OutcoldSolutions.Views
         bool IsBottomAppBarOpen { get; set; }
 
         /// <summary>
+        /// Gets app sizes.
+        /// </summary>
+        AppSizes Sizes { get; }
+
+        /// <summary>
         /// Set menu items.
         /// </summary>
         /// <param name="menuItems">
@@ -130,6 +135,8 @@ namespace OutcoldSolutions.Views
                 {
                     this.BottomAppBarFakeBorder.Height = args.NewSize.Height;
                 };
+
+            this.Sizes.SizeChanges += SizesOnSizeChanges;
         }
 
         /// <inheritdoc />
@@ -157,6 +164,15 @@ namespace OutcoldSolutions.Views
             set
             {
                 this.BottomAppBar.IsOpen = value;
+            }
+        }
+
+        /// <inheritdoc />
+        public AppSizes Sizes
+        {
+            get
+            {
+                return (AppSizes)Application.Current.Resources["AppSizes"];
             }
         }
 
@@ -320,6 +336,21 @@ namespace OutcoldSolutions.Views
             this.presenter = presenterObject;
             this.logger = logManager.CreateLogger("MainFrame");
             this.DataContext = this.presenter;
+        }
+
+        private void SizesOnSizeChanges(object sender, EventArgs eventArgs)
+        {
+            Grid.SetRow(this.ViewButtonsItemsControl, this.Sizes.IsMediumOrSmall ? 0 : 1);
+            Grid.SetRow(this.AppToolbarSeparator, this.Sizes.IsMediumOrSmall ? 0 : 1);
+            Grid.SetRow(this.ContextButtonsItemsControl, this.Sizes.IsMediumOrSmall ? 0 : 1);
+
+            Grid.SetColumn(this.BottomAppBarRightZoneRegionContentControl, this.Sizes.IsMediumOrSmall ? 0 : 3);
+            Grid.SetColumnSpan(this.BottomAppBarRightZoneRegionContentControl, this.Sizes.IsMediumOrSmall ? 4 : 1);
+
+            this.BottomAppBarRightZoneRegionContentControl.HorizontalAlignment = this.Sizes.IsMediumOrSmall
+                ? HorizontalAlignment.Stretch
+                : HorizontalAlignment.Right;
+            this.BottomAppBarRightZoneRegionContentControl.Width = this.Sizes.IsMediumOrSmall ? double.NaN : 610;
         }
 
         private void ShowPopup(PopupRegion region, FrameworkElement content)

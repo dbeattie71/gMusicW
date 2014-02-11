@@ -75,28 +75,42 @@
         <AppBar IsSticky="False"
                 Canvas.ZIndex="1000"
                 Style="{StaticResource BottomAppBarStyle}">
-            <Grid >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <ItemsControl x:Name="ViewButtonsItemsControl" 
-                              Style="{StaticResource ToolBarItemsControlStyle}" />
+                <ItemsControl Grid.Row="1"
+                              x:Name="ViewButtonsItemsControl" 
+                              Style="{StaticResource ToolBarItemsControlStyle}"
+                              Visibility="{Binding RelativeSource={RelativeSource Self}, Path=ItemsSource, Converter={StaticResource EmptyToInvisibilityConverter} }"/>
                 
                 <AppBarSeparator Grid.Column="1" 
+                                 Grid.Row="1"
                                  x:Name="AppToolbarSeparator"
                                  IsCompact="{Binding Path=IsMediumOrSmall, Source={StaticResource AppSizes}, Mode=OneWay}"/>
                 
                 <ItemsControl Grid.Column="2" 
+                              Grid.Row="1"
                               x:Name="ContextButtonsItemsControl" 
                               Style="{StaticResource ToolBarItemsControlStyle}"
-                              HorizontalAlignment="Right"/>
+                              HorizontalAlignment="Right"
+                              Visibility="{Binding RelativeSource={RelativeSource Self}, Path=ItemsSource, Converter={StaticResource EmptyToInvisibilityConverter} }"/>
 
-                <ContentControl Grid.Column="3" 
-                                x:Name="BottomAppBarRightZoneRegionContentControl"
+                <ContentControl x:Name="BottomAppBarRightZoneRegionContentControl"
+                                Grid.Column="3" 
+                                Grid.Row="1"
+                                Width="610"
+                                HorizontalAlignment="Right"
+                                HorizontalContentAlignment="Stretch"
                                 Visibility="{Binding Path=Content, RelativeSource={RelativeSource Self}, Converter={StaticResource NullToInvisibilityConverter}}" />
             </Grid>
         </AppBar>

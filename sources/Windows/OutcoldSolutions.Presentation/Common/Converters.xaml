@@ -17,5 +17,7 @@
     <baseConverters:ValueToBooleanConverter x:Key="NullToInvertBooleanConverter" Invert="True"/>
     <baseConverters:StringFormatConverter x:Key="StringFormatConverter" />
     <baseConverters:SymbolToIconConverter x:Key="SymbolToIconConverter" />
+    <baseConverters:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
+    <baseConverters:EmptyToVisibilityConverter x:Key="EmptyToInvisibilityConverter" Invert="True" />
     
 </ResourceDictionary>
