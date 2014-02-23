@@ -160,7 +160,7 @@ namespace OutcoldSolutions.GoogleMusic.Services.Publishers
                             cancellationToken);
 
                         await Task.WhenAll(withAlbumArt, withoutAlbumArt);
-                    });
+                    }, cancellationToken);
 
             cancellationToken.ThrowIfCancellationRequested();
 
