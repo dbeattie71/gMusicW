@@ -39,8 +39,13 @@ namespace OutcoldSolutions.Views
         Links = 5,
 
         /// <summary>
+        /// Region for snapped view.
+        /// </summary>
+        SnappedView = 6,
+
+        /// <summary>
         /// The region in top right corner of App Bar.
         /// </summary>
-        TopAppBarRightZone = 6,
+        TopAppBarRightZone = 7,
     }
 }

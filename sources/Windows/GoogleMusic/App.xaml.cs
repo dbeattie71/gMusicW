@@ -214,6 +214,7 @@ namespace OutcoldSolutions.GoogleMusic
                     });
 
                 mainFrameRegionProvider.SetContent(MainFrameRegion.BottomAppBarRightZone, Container.Resolve<IPlayerView>());
+                mainFrameRegionProvider.SetContent(MainFrameRegion.SnappedView, Container.Resolve<ISnappedPlayerView>());
                 mainFrameRegionProvider.SetContent(MainFrameRegion.TopAppBarRightZone, new LogoView());
 
                 var page = (Page)Window.Current.Content;

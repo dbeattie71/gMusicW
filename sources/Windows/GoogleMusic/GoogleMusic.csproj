@@ -131,6 +131,7 @@
     <Compile Include="BindingModels\SearchResultBindingModel.cs" />
     <Compile Include="BindingModels\Settings\AccountViewBindingModel.cs" />
     <Compile Include="BindingModels\Settings\SupportBindingModel.cs" />
+    <Compile Include="BindingModels\SnappedPlayerBindingModel.cs" />
     <Compile Include="BindingModels\SongResultBindingModel.cs" />
     <Compile Include="BindingModels\SongsBindingModel.cs" />
     <Compile Include="BindingModels\StartViewBindingModel.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Presenters\Popups\PlayerMorePopupViewPresenter.cs" />
     <Compile Include="Presenters\Settings\AppSettingsViewPresenter.cs" />
     <Compile Include="Presenters\Settings\UpgradeViewPresenter.cs" />
+    <Compile Include="Presenters\SnappedPlayerViewPresenter.cs" />
     <Compile Include="Presenters\UserPlaylistsPageViewPresenter.cs" />
     <Compile Include="Registration.cs" />
     <Compile Include="Services\PlayQueueService.cs" />
@@ -281,6 +283,9 @@
     </Compile>
     <Compile Include="Views\Settings\UpgradeView.xaml.cs">
       <DependentUpon>UpgradeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SnappedPlayerView.xaml.cs">
+      <DependentUpon>SnappedPlayerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
@@ -462,6 +467,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\UpgradeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SnappedPlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

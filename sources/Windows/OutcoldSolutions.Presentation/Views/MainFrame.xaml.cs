@@ -111,6 +111,8 @@ namespace OutcoldSolutions.Views
 
         private Popup fullScreenPopup;
 
+        private bool bottomToolWasOpen;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainFrame"/> class.
         /// </summary>
@@ -265,6 +267,10 @@ namespace OutcoldSolutions.Views
                     this.SetLinksRegion(content);
                     break;
 
+                case MainFrameRegion.SnappedView:
+                    this.SetSnappedRegion(content);
+                    break;
+
                 case MainFrameRegion.TopAppBarRightZone:
                     this.SetTopAppBarRightZoneRegion(content);
                     break;
@@ -317,6 +323,10 @@ namespace OutcoldSolutions.Views
                     this.LinksContentControl.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
                     break;
 
+                case MainFrameRegion.SnappedView:
+                    this.SnappedViewContentControl.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
+                    break;
+
                 case MainFrameRegion.TopAppBarRightZone:
                     this.TopAppBarRightZoneRegionContentControl.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
                     break;
@@ -340,17 +350,52 @@ namespace OutcoldSolutions.Views
 
         private void SizesOnSizeChanges(object sender, EventArgs eventArgs)
         {
-            Grid.SetRow(this.ViewButtonsItemsControl, this.Sizes.IsMediumOrSmall ? 0 : 1);
-            Grid.SetRow(this.AppToolbarSeparator, this.Sizes.IsMediumOrSmall ? 0 : 1);
-            Grid.SetRow(this.ContextButtonsItemsControl, this.Sizes.IsMediumOrSmall ? 0 : 1);
+            Grid.SetRow(this.ViewButtonsItemsControl, this.Sizes.IsSmall ? 0 : 1);
+            Grid.SetRow(this.AppToolbarSeparator, this.Sizes.IsSmall ? 0 : 1);
+            Grid.SetRow(this.ContextButtonsItemsControl, this.Sizes.IsSmall ? 0 : 1);
 
-            Grid.SetColumn(this.BottomAppBarRightZoneRegionContentControl, this.Sizes.IsMediumOrSmall ? 0 : 3);
-            Grid.SetColumnSpan(this.BottomAppBarRightZoneRegionContentControl, this.Sizes.IsMediumOrSmall ? 4 : 1);
+            Grid.SetColumn(this.BottomAppBarRightZoneRegionContentControl, this.Sizes.IsSmall ? 0 : 3);
+            Grid.SetColumnSpan(this.BottomAppBarRightZoneRegionContentControl, this.Sizes.IsSmall ? 4 : 1);
 
-            this.BottomAppBarRightZoneRegionContentControl.HorizontalAlignment = this.Sizes.IsMediumOrSmall
+            this.BottomAppBarRightZoneRegionContentControl.HorizontalAlignment = this.Sizes.IsSmall
                 ? HorizontalAlignment.Stretch
                 : HorizontalAlignment.Right;
-            this.BottomAppBarRightZoneRegionContentControl.Width = this.Sizes.IsMediumOrSmall ? double.NaN : 610;
+            this.BottomAppBarRightZoneRegionContentControl.Width = this.Sizes.IsMediumOrSmall ? 420 : 610;
+
+            if (this.Sizes.IsSmall)
+            {
+                this.FullViewGrid.Visibility = Visibility.Collapsed;
+                this.SnappedViewContentControl.Visibility = Visibility.Visible;
+
+                var control = this.SnappedViewContentControl.Content as Control;
+                if (control != null)
+                {
+                    control.Focus(FocusState.Programmatic);
+                }
+
+                this.bottomToolWasOpen = this.BottomAppBar.IsOpen;
+            }
+            else
+            {
+                this.FullViewGrid.Visibility = Visibility.Visible;
+                this.SnappedViewContentControl.Visibility = Visibility.Collapsed;
+
+                var control = this.ContentControl.Content as Control;
+                if (control != null)
+                {
+                    control.Focus(FocusState.Programmatic);
+                }
+            }
+
+            this.UpdateFullScreenPopupSize();
+            this.UpdateBottomAppBarVisibility();
+            this.UpdateTopAppBarVisibility();
+
+            if (!this.Sizes.IsSmall && this.bottomToolWasOpen)
+            {
+                this.BottomAppBar.IsOpen = this.bottomToolWasOpen;
+                this.bottomToolWasOpen = false;
+            }
         }
 
         private void ShowPopup(PopupRegion region, FrameworkElement content)
@@ -600,6 +645,11 @@ namespace OutcoldSolutions.Views
             this.LinksContentControl.Content = content;
         }
 
+        private void SetSnappedRegion(object content)
+        {
+            this.SnappedViewContentControl.Content = content;
+        }
+
         private void SetTopAppBarRightZoneRegion(object content)
         {
             this.TopAppBarRightZoneRegionContentControl.Content = content;
@@ -658,7 +708,7 @@ namespace OutcoldSolutions.Views
             {
                 var currentVisibility = appBar.Visibility == Visibility.Visible && appBar.IsOpen;
 
-                var isVisible = (this.fullScreenPopup == null || !this.fullScreenPopup.IsOpen) && isLogicalVisible;
+                var isVisible = this.Sizes.IsMediumOrLarge && (this.fullScreenPopup == null || !this.fullScreenPopup.IsOpen) && isLogicalVisible;
 
                 appBar.Visibility = isVisible ? Visibility.Visible : Visibility.Collapsed;
 
