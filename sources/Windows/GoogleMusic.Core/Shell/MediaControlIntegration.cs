@@ -10,7 +10,12 @@ namespace OutcoldSolutions.GoogleMusic.Shell
 
     using Windows.Media;
 
-    public class MediaControlIntegration : IDisposable
+    public interface IMediaControlIntegration
+    {
+        SystemMediaTransportControls GetSystemMediaTransportControls();
+    }
+
+    public class MediaControlIntegration : IDisposable, IMediaControlIntegration
     {
         private readonly IPlayQueueService playQueueService;
         private readonly IDispatcher dispatcher;
@@ -41,6 +46,11 @@ namespace OutcoldSolutions.GoogleMusic.Shell
         {
             this.systemMediaTransportControls.ButtonPressed -= this.OnButtonPressed;
             GC.SuppressFinalize(this);
+        }
+
+        public SystemMediaTransportControls GetSystemMediaTransportControls()
+        {
+            return this.systemMediaTransportControls;
         }
 
         private async void StateChanged(object sender, StateChangedEventArgs eventArgs)
