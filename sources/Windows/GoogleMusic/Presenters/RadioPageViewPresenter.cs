@@ -15,18 +15,18 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
     using OutcoldSolutions.GoogleMusic.Models;
     using OutcoldSolutions.GoogleMusic.Services;
     using OutcoldSolutions.GoogleMusic.Views;
-    using OutcoldSolutions.GoogleMusic.Views.Popups;
-    using OutcoldSolutions.GoogleMusic.Web;
-    using OutcoldSolutions.Views;
 
     using Windows.UI.Popups;
+
+    using OutcoldSolutions.GoogleMusic.Views.Popups;
+    using OutcoldSolutions.Views;
 
     public class RadioPageViewPresenter : PlaylistsPageViewPresenterBase<IRadioPageView, PlaylistsPageViewBindingModel>
     {
         private readonly IApplicationResources resources;
         private readonly INavigationService navigationService;
         private readonly IPlayQueueService playQueueService;
-        private readonly IRadioWebService radioWebService;
+        private readonly IRadioStationsService radioStationsService;
 
         public RadioPageViewPresenter(
             IApplicationResources resources, 
@@ -35,15 +35,16 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
             IPlayQueueService playQueueService, 
             ISongsCachingService cachingService, 
             IApplicationStateService stateService,
-            IRadioWebService radioWebService)
-            : base(resources, playlistsService, navigationService, playQueueService, cachingService, stateService)
+            IRadioStationsService radioStationsService,
+            ISettingsService settingsService)
+            : base(resources, playlistsService, navigationService, playQueueService, cachingService, stateService, radioStationsService, settingsService)
         {
             this.resources = resources;
             this.navigationService = navigationService;
             this.playQueueService = playQueueService;
-            this.radioWebService = radioWebService;
+            this.radioStationsService = radioStationsService;
             this.EditRadioNameCommand = new DelegateCommand(this.EditRadioName, () => this.BindingModel.SelectedItems.Count == 1);
-            this.DeleteRadioCommand = new DelegateCommand(this.DeleteRadio, () => this.BindingModel.SelectedItems.Count > 0);
+            this.DeleteRadioCommand = new DelegateCommand(this.DeleteRadio, () => this.BindingModel.SelectedItems.Count > 0 && this.BindingModel.SelectedItems.All(x => !string.IsNullOrEmpty(x.Playlist.Id)));
         }
 
         public DelegateCommand DeleteRadioCommand { get; private set; }
@@ -79,13 +80,14 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
         {
             base.OnSelectedItemsChanged();
 
-            this.EditRadioNameCommand.RaiseCanExecuteChanged();
             this.DeleteRadioCommand.RaiseCanExecuteChanged();
+            this.EditRadioNameCommand.RaiseCanExecuteChanged();
         }
 
         protected override IEnumerable<CommandMetadata> GetContextCommands()
         {
-            yield return new CommandMetadata(Symbol.Edit, this.resources.GetString("Toolbar_RenameButton"), this.EditRadioNameCommand);
+            // Goolge API does not support it
+            // yield return new CommandMetadata(Symbol.Edit, this.resources.GetString("Toolbar_RenameButton"), this.EditRadioNameCommand);
             yield return new CommandMetadata(Symbol.Delete, this.resources.GetString("Toolbar_DeleteButton"), this.DeleteRadioCommand);
         }
 
@@ -111,10 +113,7 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
                     {
                         this.IsDataLoading = true;
 
-                        foreach (RadioPlaylist playlist in playlists)
-                        {
-                            await this.radioWebService.DeleteStationAsync(playlist.Id);
-                        }
+                        await this.radioStationsService.DeleteAsync(playlists.Cast<Radio>().ToList());
 
                         this.IsDataLoading = false;
 

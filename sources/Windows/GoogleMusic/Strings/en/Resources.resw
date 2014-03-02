@@ -281,6 +281,9 @@
     <value>Home</value>
     <comment>06.png</comment>
   </data>
+  <data name="MainMenu_InstantMixes" xml:space="preserve">
+    <value>Instant Mixes</value>
+  </data>
   <data name="MainMenu_Playlists" xml:space="preserve">
     <value>Playlists</value>
     <comment>06.png</comment>
@@ -339,6 +342,18 @@
   <data name="Model_Genre_Title" xml:space="preserve">
     <value>Genre</value>
   </data>
+  <data name="Model_InstantMixes_Plural_Title" xml:space="preserve">
+    <value>Instant Mixes</value>
+  </data>
+  <data name="Model_InstantMix_Title" xml:space="preserve">
+    <value>Instant Mix</value>
+  </data>
+  <data name="Model_Radio_Plural_Title" xml:space="preserve">
+    <value>Radio Stations</value>
+  </data>
+  <data name="Model_Radio_Title" xml:space="preserve">
+    <value>Radio</value>
+  </data>
   <data name="Model_Song_Plural_Title" xml:space="preserve">
     <value>Songs</value>
     <comment>15.png</comment>
@@ -359,9 +374,6 @@
   </data>
   <data name="Msg_Http404" xml:space="preserve">
     <value>Server does not know this song. You can force to refresh your local library or just when application will auto sync it with server.</value>
-  </data>
-  <data name="Notification_FailedToDownloadPlaylists" xml:space="preserve">
-    <value>Failed to download playlists, this could be temporary issue. We will try to download them later.</value>
   </data>
   <data name="OfflineCacheAppSettingsTitle" xml:space="preserve">
     <value>Offline cache</value>
@@ -427,6 +439,9 @@
   </data>
   <data name="QueueSongsList_SongTitle.Text" xml:space="preserve">
     <value>name</value>
+  </data>
+  <data name="Radio_Lucky" xml:space="preserve">
+    <value>I'm feeling lucky radio</value>
   </data>
   <data name="RelaseHistory_ThankYou.Text" xml:space="preserve">
     <value>Thank you for using gMusicW application!</value>
@@ -558,7 +573,7 @@ This setting allows to prevent this when gMusicW application is in foreground (o
     <comment>09.png</comment>
   </data>
   <data name="SettingsUpgrade_AddFreePackageDescription.Text" xml:space="preserve">
-    <value>You can buy for $1.99 AdFree package, which will remove all advertisements (limited offer):</value>
+    <value>You can buy for $4.99 AdFree package, which will remove all advertisements:</value>
     <comment>09.png</comment>
   </data>
   <data name="SettingsUpgrade_RemoveAdsTitle.Text" xml:space="preserve">
@@ -574,7 +589,7 @@ This setting allows to prevent this when gMusicW application is in foreground (o
     <comment>09.png</comment>
   </data>
   <data name="SettingsUpgrade_UltimatePackageDescription.Text" xml:space="preserve">
-    <value>Or you can spend $4.99 for Ultimate package. This package does not offer any additional features now (other than Ad Free package has). 
+    <value>Or you can spend $9.99 for Ultimate package. This package does not offer any additional features now (other than Ad Free package has). 
 But it will contains all additional features, which we will ship in future. For now we can say, that this is a way to support development of our app.</value>
     <comment>09.png</comment>
   </data>
@@ -635,6 +650,9 @@ But it will contains all additional features, which we will ship in future. For 
     <value>Show All</value>
     <comment>16.png</comment>
   </data>
+  <data name="Toolbar_StartInstantMix" xml:space="preserve">
+    <value>Start instant mix</value>
+  </data>
   <data name="Toolbar_StartRadio" xml:space="preserve">
     <value>Start radio</value>
   </data>
@@ -646,5 +664,11 @@ But it will contains all additional features, which we will ship in future. For 
   </data>
   <data name="Update_MessageBox_Updates_OkButton" xml:space="preserve">
     <value>Ok</value>
+  </data>
+  <data name="InstantMix_Lucky" xml:space="preserve">
+    <value>I'm feeling lucky mix</value>
+  </data>
+  <data name="Radio_CouldNotPrepare" xml:space="preserve">
+    <value>Couldn't prepare radio. Please try again later.</value>
   </data>
 </root>

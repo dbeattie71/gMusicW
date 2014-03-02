@@ -24,7 +24,7 @@ namespace OutcoldSolutions.GoogleMusic.Services
         private readonly ISongsCachingService songsCachingService;
         private readonly ICurrentSongPublisherService publisherService;
         private readonly IPlaylistsService playlistsService;
-        private readonly IRadioWebService radioWebService;
+        private readonly IRadioStationsService radioStationsService;
 
         private readonly IEventAggregator eventAggregator;
 
@@ -50,7 +50,7 @@ namespace OutcoldSolutions.GoogleMusic.Services
             ICurrentSongPublisherService publisherService,
             IGoogleMusicSessionService sessionService,
             IPlaylistsService playlistsService,
-            IRadioWebService radioWebService,
+            IRadioStationsService radioStationsService,
             IEventAggregator eventAggregator)
         {
             this.logger = logManager.CreateLogger("PlayQueueService");
@@ -59,7 +59,7 @@ namespace OutcoldSolutions.GoogleMusic.Services
             this.songsCachingService = songsCachingService;
             this.publisherService = publisherService;
             this.playlistsService = playlistsService;
-            this.radioWebService = radioWebService;
+            this.radioStationsService = radioStationsService;
             this.eventAggregator = eventAggregator;
             this.currentQueueIndex = -1;
 
@@ -518,7 +518,7 @@ namespace OutcoldSolutions.GoogleMusic.Services
                 {
                     if (this.logger.IsDebugEnabled)
                     {
-                        this.logger.Debug("Getting url for song '{0}'.", song.ProviderSongId);
+                        this.logger.Debug("Getting url for song '{0}'.", song.SongId);
                     }
 
                     var stream = await this.songsCachingService.GetStreamAsync(song);
@@ -562,7 +562,7 @@ namespace OutcoldSolutions.GoogleMusic.Services
                             {
                                 try
                                 {
-                                    var newRadioSongs = await this.radioWebService.GetRadioSongsAsync(this.CurrentPlaylist.Id, this.songsQueue);
+                                    var newRadioSongs = await this.radioStationsService.GetRadioSongsAsync(this.CurrentPlaylist.Id, this.songsQueue);
                                     await this.AddRangeAsync(this.CurrentPlaylist, newRadioSongs);
                                 }
                                 catch (Exception e)
@@ -587,7 +587,7 @@ namespace OutcoldSolutions.GoogleMusic.Services
 
                         if (this.logger.IsDebugEnabled)
                         {
-                            this.logger.Debug("Could not get url for song {0}.", song.ProviderSongId);
+                            this.logger.Debug("Could not get url for song {0}.", song.SongId);
                         }
                     }
                 }

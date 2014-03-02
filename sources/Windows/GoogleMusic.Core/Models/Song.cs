@@ -10,10 +10,10 @@ namespace OutcoldSolutions.GoogleMusic.Models
     [Table("Song")]
     public class Song
     {
-        [PrimaryKey, AutoIncrement]
-        public int SongId { get; set; }
+        [PrimaryKey]
+        public string SongId { get; set; }
 
-        public string ProviderSongId { get; set; }
+        public string ClientId { get; set; }
 
         public string Title { get; set; }
 
@@ -40,18 +40,20 @@ namespace OutcoldSolutions.GoogleMusic.Models
 
         public Uri AlbumArtUrl { get; set; }
 
-        [Indexed]
-        public DateTime LastPlayed { get; set; }
+        public Uri ArtistArtUrl { get; set; }
 
-        [Indexed]
+        public DateTime ServerRecent { get; set; }
+
         public DateTime CreationDate { get; set; }
 
         public string Comment { get; set; }
 
-        public int Bitrate { get; set; }
+        public StreamType TrackType { get; set; }
 
-        public StreamType StreamType { get; set; }
-       
+        public string GoogleArtistId { get; set; }
+
+        public string GoogleAlbumId { get; set; }
+
         [Reference]
         public UserPlaylistEntry UserPlaylistEntry { get; set; }
 
@@ -80,5 +82,38 @@ namespace OutcoldSolutions.GoogleMusic.Models
         public bool IsLibrary { get; set; }
 
         public string StoreId { get; set; }
+
+        public DateTime LastModified { get; set; }
+
+        public int BeatsPerMinute { get; set; }
+
+        public string EstimatedSize { get; set; }
+
+        public int ContentType { get; set; }
+
+        public bool TrackAvailableForSubscription { get; set; }
+
+        public bool TrackAvailableForPurchase { get; set; }
+
+        public bool AlbumAvailableForPurchase { get; set; }
+
+        public string Nid { get; set; }
+
+        // Statistics
+
+        [Indexed]
+        public uint StatsPlayCount { get; set; }
+
+        public DateTime StatsRecent { get; set; }
+
+        [Indexed]
+        public DateTime Recent { get; set; }
+
+        public uint ServerPlayCount { get; set; }
+
+        // 
+
+        [Ignore]
+        public bool UnknownSong { get; set; }
     }
 }

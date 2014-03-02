@@ -14,21 +14,25 @@ namespace OutcoldSolutions.GoogleMusic.Repositories
 
     public interface IUserPlaylistsRepository : IPlaylistRepository<UserPlaylist>
     {
-        Task InsertAsync(UserPlaylist userPlaylist);
+        Task<int> InsertAsync(IEnumerable<UserPlaylist> userPlaylist);
 
-        Task DeleteAsync(UserPlaylist userPlaylist);
+        Task<int> DeleteAsync(IEnumerable<UserPlaylist> userPlaylist);
 
-        Task UpdateAsync(UserPlaylist userPlaylist);
+        Task<int> UpdateAsync(IEnumerable<UserPlaylist> userPlaylist);
 
-        Task<IList<UserPlaylistEntry>> GetAllSongEntriesAsync(int sondId);
+        Task<IList<UserPlaylistEntry>> GetAllSongEntriesAsync(string sondId);
 
-        Task DeleteEntriesAsync(IEnumerable<UserPlaylistEntry> entries);
+        Task<int> DeleteEntriesAsync(IEnumerable<UserPlaylistEntry> entries);
 
-        Task InsertEntriesAsync(IEnumerable<UserPlaylistEntry> entries);
+        Task<int> InsertEntriesAsync(IEnumerable<UserPlaylistEntry> entries);
 
-        Task UpdateEntriesAsync(IEnumerable<UserPlaylistEntry> entries);
+        Task<int> UpdateEntriesAsync(IEnumerable<UserPlaylistEntry> entries);
 
         Task<UserPlaylist> FindUserPlaylistAsync(Song song);
+
+        Task<UserPlaylistEntry> GetEntryAsync(string id);
+
+        Task<List<UserPlaylist>> GetAllUserPlaylistsAsync();
     }
 
     public class UserPlaylistsRepository : RepositoryBase, IUserPlaylistsRepository
@@ -46,7 +50,10 @@ select s.*,
     e.[PlaylistId] as [UserPlaylistEntry.PlaylistId], 
     e.[SongId] as [UserPlaylistEntry.SongId],
     e.[PlaylistOrder] as [UserPlaylistEntry.PlaylistOrder],
-    e.[ProviderEntryId] as [UserPlaylistEntry.ProviderEntryId]
+    e.[CreationDate] as [UserPlaylistEntry.CreationDate],
+    e.[LastModified] as [UserPlaylistEntry.LastModified],
+    e.[CliendId] as [UserPlaylistEntry.CliendId],
+    e.[Source] as [UserPlaylistEntry.Source]
 from [Song] as s
      inner join UserPlaylistEntry e on e.SongId = s.SongId
 where (?1 = 1 or s.IsCached = 1) and e.[PlaylistId] = ?2
@@ -89,7 +96,7 @@ limit 1
 
             if (this.stateService.IsOffline())
             {
-                query = query.Where(a => a.OfflineSongsCount > 0);
+                query = query.Where(a => a.OfflineSongsCount > 0 && a.Type == "USER_GENERATED");
             }
 
             if (order == Order.Name)
@@ -98,7 +105,7 @@ limit 1
             }
             else if (order == Order.LastPlayed)
             {
-                query = query.OrderByDescending(p => p.LastPlayed);
+                query = query.OrderByDescending(p => p.Recent);
             }
 
             if (take.HasValue)
@@ -111,9 +118,7 @@ limit 1
 
         public async Task<UserPlaylist> GetAsync(string id)
         {
-            int playlistId = int.Parse(id);
-
-            var query = this.Connection.Table<UserPlaylist>().Where(a => a.PlaylistId == playlistId);
+            var query = this.Connection.Table<UserPlaylist>().Where(a => a.PlaylistId == id);
 
             if (this.stateService.IsOffline())
             {
@@ -121,6 +126,11 @@ limit 1
             }
 
             return await query.FirstOrDefaultAsync();
+        }
+
+        public Task<UserPlaylistEntry> GetEntryAsync(string id)
+        {
+            return this.Connection.Table<UserPlaylistEntry>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<IList<Song>> GetSongsAsync(string id, bool includeAll = false)
@@ -142,48 +152,65 @@ limit 1
             return await this.Connection.QueryAsync<UserPlaylist>(sql.ToString(), this.stateService.IsOnline(), string.Format("%{0}%", searchQueryNorm));
         }
         
-        public Task InsertAsync(UserPlaylist userPlaylist)
+        public Task<int> InsertAsync(IEnumerable<UserPlaylist> userPlaylist)
         {
-            return this.Connection.InsertAsync(userPlaylist);
+            return this.Connection.InsertAllAsync(userPlaylist);
         }
 
-        public async Task<IList<UserPlaylistEntry>> GetAllSongEntriesAsync(int sondId)
+        public async Task<IList<UserPlaylistEntry>> GetAllSongEntriesAsync(string sondId)
         {
             return await this.Connection.Table<UserPlaylistEntry>().Where(x => x.SongId == sondId).ToListAsync();
         }
 
-        public Task DeleteAsync(UserPlaylist playlist)
+        public async Task<int> DeleteAsync(IEnumerable<UserPlaylist> playlists)
         {
-            return this.Connection.RunInTransactionAsync(
+            int deletedCount = 0;
+            await this.Connection.RunInTransactionAsync(
                     (connection) =>
                     {
-                        connection.Execute(SqlDeletePlaylistEntries, playlist.Id);
-                        connection.Delete<UserPlaylist>(playlist.Id);
+                        foreach (var userPlaylist in playlists)
+                        {
+                            connection.Execute(SqlDeletePlaylistEntries, userPlaylist.Id);
+                            deletedCount += connection.Delete<UserPlaylist>(userPlaylist.Id);
+                        }
                     });
+            return deletedCount;
         }
 
-        public Task UpdateAsync(UserPlaylist playlist)
+        public async Task<int> UpdateAsync(IEnumerable<UserPlaylist> playlists)
         {
-            return this.Connection.UpdateAsync(playlist);
+            int updatedCount = 0;
+            await this.Connection.RunInTransactionAsync(connection =>
+            {
+                foreach (var playlist in playlists)
+                {
+                    updatedCount += connection.Update(playlist);
+                }
+            });
+            return updatedCount;
         }
 
-        public Task DeleteEntriesAsync(IEnumerable<UserPlaylistEntry> entries)
+        public async Task<int> DeleteEntriesAsync(IEnumerable<UserPlaylistEntry> entries)
         {
             if (entries == null)
             {
                 throw new ArgumentNullException("entries");
             }
 
-            return this.Connection.RunInTransactionAsync(connection =>
+            int deletedCount = 0;
+
+            await this.Connection.RunInTransactionAsync(connection =>
             {
                 foreach (var userPlaylistEntry in entries)
                 {
-                    connection.Delete(userPlaylistEntry);
+                    deletedCount += connection.Delete(userPlaylistEntry);
                 }
             });
+
+            return deletedCount;
         }
 
-        public Task InsertEntriesAsync(IEnumerable<UserPlaylistEntry> entries)
+        public Task<int> InsertEntriesAsync(IEnumerable<UserPlaylistEntry> entries)
         {
             if (entries == null)
             {
@@ -193,20 +220,24 @@ limit 1
             return this.Connection.InsertAllAsync(entries);
         }
 
-        public Task UpdateEntriesAsync(IEnumerable<UserPlaylistEntry> entries)
+        public async Task<int> UpdateEntriesAsync(IEnumerable<UserPlaylistEntry> entries)
         {
             if (entries == null)
             {
                 throw new ArgumentNullException("entries");
             }
 
-            return this.Connection.RunInTransactionAsync(connection =>
+            int updatedCount = 0;
+
+            await this.Connection.RunInTransactionAsync(connection =>
             {
                 foreach (var userPlaylistEntry in entries)
                 {
-                    connection.Update(userPlaylistEntry);
+                    updatedCount += connection.Update(userPlaylistEntry);
                 }
             });
+
+            return updatedCount;
         }
 
         public async Task<UserPlaylist> FindUserPlaylistAsync(Song song)
@@ -217,6 +248,12 @@ limit 1
             }
 
             return (await this.Connection.QueryAsync<UserPlaylist>(SqlFindFirstUserPlaylist, song.SongId)).FirstOrDefault();
+        }
+
+
+        public Task<List<UserPlaylist>> GetAllUserPlaylistsAsync()
+        {
+            return this.Connection.Table<UserPlaylist>().Where(a => a.Type == "USER_GENERATED").OrderBy(x => x.TitleNorm).ToListAsync();
         }
     }
 }

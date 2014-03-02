@@ -20,6 +20,8 @@ namespace OutcoldSolutions.GoogleMusic.Repositories
         Task DeleteCachedItemsAsync(IEnumerable<CachedAlbumArt> cachedAlbumArts);
 
         Task ClearCacheAsync();
+
+        Task DeleteBrokenLinkAsync(Uri url, uint size);
     }
 
     public class CachedAlbumArtsRepository : RepositoryBase, ICachedAlbumArtsRepository
@@ -59,6 +61,16 @@ from CachedAlbumArt c
         public Task ClearCacheAsync()
         {
             return this.Connection.RunInTransactionAsync(c => c.DeleteAll<CachedAlbumArt>());
+        }
+
+
+        public async Task DeleteBrokenLinkAsync(Uri url, uint size)
+        {
+            var brokenCache = await this.FindAsync(url, size);
+            if (brokenCache != null)
+            {
+                await this.Connection.DeleteAsync(brokenCache);
+            }
         }
     }
 }

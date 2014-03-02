@@ -4,22 +4,21 @@
 namespace OutcoldSolutions.GoogleMusic.Models
 {
     using System;
-    using System.Globalization;
 
     using SQLite;
 
     [Table("UserPlaylist")]
     public class UserPlaylist : IPlaylist
     {
-        [PrimaryKey, AutoIncrement, Column("PlaylistId")]
-        public int PlaylistId { get; set; }
+        [PrimaryKey]
+        public string PlaylistId { get; set; }
 
         [Ignore]
         public string Id
         {
             get
             {
-                return this.PlaylistId > 0 ? this.PlaylistId.ToString(CultureInfo.InvariantCulture) : string.Empty;
+                return this.PlaylistId;
             }
         }
 
@@ -31,8 +30,6 @@ namespace OutcoldSolutions.GoogleMusic.Models
                 return PlaylistType.UserPlaylist;
             }
         }
-
-        public string ProviderPlaylistId { get; set; }
 
         public string Title { get; set; }
 
@@ -47,9 +44,35 @@ namespace OutcoldSolutions.GoogleMusic.Models
 
         public TimeSpan OfflineDuration { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
+        public DateTime LastModified { get; set; }
+
+        public DateTime RecentDate { get; set; }
+
+        public string Type { get; set; }
+
+        public string ShareToken { get; set; }
+
+        public string OwnerName { get; set; }
+
+        public string OwnerProfilePhotoUrl { get; set; }
+
+        public bool AccessControlled { get; set; }
+
+        public string Description { get; set; }
+
         public Uri ArtUrl { get; set; }
 
         [Indexed]
-        public DateTime LastPlayed { get; set; }
+        public DateTime Recent { get; set; }
+
+        public bool IsShared
+        {
+            get
+            {
+                return string.Equals(this.Type, "SHARED", StringComparison.OrdinalIgnoreCase);
+            }
+        }
     }
 }

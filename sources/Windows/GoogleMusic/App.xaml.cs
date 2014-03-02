@@ -101,6 +101,7 @@ namespace OutcoldSolutions.GoogleMusic
                 registration.Register<IDataProtectService>().AsSingleton<DataProtectService>();
                 registration.Register<IGoogleAccountWebService>().As<GoogleAccountWebService>();
                 registration.Register<IGoogleMusicWebService>().AsSingleton<GoogleMusicWebService>();
+                registration.Register<IGoogleMusicApisService>().AsSingleton<GoogleMusicApisService>();
                 registration.Register<IGoogleAccountService>().AsSingleton<GoogleAccountService>();
                 registration.Register<IAuthentificationService>().As<AuthentificationService>();
                 registration.Register<IPlaylistsWebService>().As<PlaylistsWebService>();
@@ -108,6 +109,7 @@ namespace OutcoldSolutions.GoogleMusic
                 registration.Register<IRadioWebService>().AsSingleton<RadioWebService>();
                 registration.Register<ISettingsService>().AsSingleton<SettingsService>();
                 registration.Register<IGoogleMusicSessionService>().AsSingleton<GoogleMusicSessionService>();
+                registration.Register<IConfigWebService>().AsSingleton<ConfigWebService>();
 
                 registration.Register<IMediaStreamDownloadService>().AsSingleton<MediaStreamDownloadService>();
 
@@ -133,6 +135,8 @@ namespace OutcoldSolutions.GoogleMusic
                 registration.Register<IUserPlaylistsService>().AsSingleton<UserPlaylistsService>();
                 registration.Register<IAlbumArtCacheService>().AsSingleton<AlbumArtCacheService>();
                 registration.Register<ICachedAlbumArtsRepository>().AsSingleton<CachedAlbumArtsRepository>();
+                registration.Register<IRadioStationsRepository>().And<IPlaylistRepository<Radio>>().AsSingleton<RadioStationsRepository>();
+                registration.Register<IRadioStationsService>().AsSingleton<RadioStationsService>();
 
                 registration.Register<IInitialSynchronization>().As<InitialSynchronization>();
 
@@ -224,6 +228,7 @@ namespace OutcoldSolutions.GoogleMusic
                     Container.Resolve<IMainFrame>(),
                     Container.Resolve<IApplicationResources>(),
                     Container.Resolve<IApplicationStateService>(),
+                    Container.Resolve<ISettingsService>(),
                     Container.Resolve<IEventAggregator>());
                 ApplicationSettingViews.Initialize(Container.Resolve<IApplicationSettingViewsService>(), Container.Resolve<IApplicationResources>());
 
@@ -236,9 +241,7 @@ namespace OutcoldSolutions.GoogleMusic
 
         protected override async Task OnSuspendingAsync()
         {
-            var sessionService = Container.Resolve<IGoogleMusicSessionService>();
-
-            await Container.Resolve<IGoogleMusicWebService>().SaveCurrentSessionAsync();
+            await Container.Resolve<IGoogleMusicSessionService>().SaveCurrentSessionAsync();
 
             Container.Resolve<ILastfmWebService>().SaveCurrentSession();
 

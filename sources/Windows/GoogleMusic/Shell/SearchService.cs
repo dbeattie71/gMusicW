@@ -168,23 +168,19 @@ namespace OutcoldSolutions.GoogleMusic.Shell
             }
             else
             {
-                int songId;
-                if (int.TryParse(tag, out songId))
+                var song = await this.songsRepository.GetSongAsync(tag);
+                if (song != null)
                 {
-                    var song = await this.songsRepository.GetSongAsync(songId);
-                    if (song != null)
+                    if (song.IsLibrary)
                     {
-                        if (song.IsLibrary)
+                        await this.dispatcher.RunAsync(() => this.navigationService.NavigateTo<IAlbumPageView>(tag));
+                    }
+                    else
+                    {
+                        var playlist = await this.playlistsRepository.FindUserPlaylistAsync(song);
+                        if (playlist != null)
                         {
-                            await this.dispatcher.RunAsync(() => this.navigationService.NavigateTo<IAlbumPageView>(songId));
-                        }
-                        else
-                        {
-                            var playlist = await this.playlistsRepository.FindUserPlaylistAsync(song);
-                            if (playlist != null)
-                            {
-                                await this.dispatcher.RunAsync(() => this.navigationService.NavigateTo<IPlaylistPageView>(new PlaylistNavigationRequest(PlaylistType.UserPlaylist, playlist.Id, song.SongId)));
-                            }
+                            await this.dispatcher.RunAsync(() => this.navigationService.NavigateTo<IPlaylistPageView>(new PlaylistNavigationRequest(PlaylistType.UserPlaylist, playlist.Id, song.SongId)));
                         }
                     }
                 }
@@ -252,9 +248,13 @@ namespace OutcoldSolutions.GoogleMusic.Shell
                     titleAdded = true;
                 }
 
+                string subtitle = playlist.PlaylistType == PlaylistType.UserPlaylist && ((UserPlaylist)playlist).IsShared ?
+                    string.Format(CultureInfo.CurrentCulture, "By {0}", ((UserPlaylist)playlist).OwnerName) :
+                    string.Format(CultureInfo.CurrentCulture, this.resources.GetString("SearchItem_SongsFormat"), playlist.SongsCount);
+
                 result.Add(new SearchResult(
                     playlist.Title,
-                    string.Format(CultureInfo.CurrentCulture, this.resources.GetString("SearchItem_SongsFormat"), playlist.SongsCount),
+                    subtitle,
                     string.Format(CultureInfo.CurrentCulture, "{0}:{1}", playlistType, playlist.Id),
                     playlist.ArtUrl));
             }

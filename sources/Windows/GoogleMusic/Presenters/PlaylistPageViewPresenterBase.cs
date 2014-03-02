@@ -19,7 +19,6 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
     using OutcoldSolutions.GoogleMusic.Services;
     using OutcoldSolutions.GoogleMusic.Views;
     using OutcoldSolutions.GoogleMusic.Views.Popups;
-    using OutcoldSolutions.GoogleMusic.Web;
     using OutcoldSolutions.Presenters;
     using OutcoldSolutions.Views;
 
@@ -34,8 +33,9 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
         private readonly IApplicationResources resources;
         private readonly ISongsCachingService cachingService;
         private readonly IApplicationStateService stateService;
-        private readonly IRadioWebService radioWebService;
+        private readonly IRadioStationsService radioStationsService;
         private readonly INavigationService navigationService;
+        private readonly ISettingsService settingsService;
 
         public PlaylistPageViewPresenterBase(IDependencyResolverContainer container)
         {
@@ -45,13 +45,14 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
             this.resources = container.Resolve<IApplicationResources>();
             this.cachingService = container.Resolve<ISongsCachingService>();
             this.stateService = container.Resolve<IApplicationStateService>();
-            this.radioWebService = container.Resolve<IRadioWebService>();
+            this.radioStationsService = container.Resolve<IRadioStationsService>();
             this.navigationService = container.Resolve<INavigationService>();
+            this.settingsService = container.Resolve<ISettingsService>();
 
             this.QueueCommand = new DelegateCommand(this.Queue, () => this.BindingModel != null && this.BindingModel.SongsBindingModel.SelectedItems.Count > 0);
             this.AddToPlaylistCommand = new DelegateCommand(this.AddToPlaylist, () => this.BindingModel != null && this.BindingModel.SongsBindingModel.SelectedItems.Count > 0);
-            this.DownloadCommand = new DelegateCommand(this.Download, () => this.BindingModel != null && this.BindingModel.SongsBindingModel.SelectedItems.Count > 0);
-            this.UnPinCommand = new DelegateCommand(this.UnPin, () => this.BindingModel != null && this.BindingModel.SongsBindingModel.SelectedItems.Count > 0);
+            this.DownloadCommand = new DelegateCommand(this.Download, () => this.BindingModel != null && this.BindingModel.SongsBindingModel.SelectedItems.Count(x => !x.Metadata.UnknownSong) > 0);
+            this.UnPinCommand = new DelegateCommand(this.UnPin, () => this.BindingModel != null && this.BindingModel.SongsBindingModel.SelectedItems.Count(x => !x.Metadata.UnknownSong) > 0);
             this.RateSongCommand = new DelegateCommand(this.RateSong);
             this.StartRadioCommand = new DelegateCommand(this.StartRadio, () => this.BindingModel != null && this.BindingModel.SongsBindingModel.SelectedItems.Count == 1);
         }
@@ -112,7 +113,7 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
                         this.BindingModel.Playlist = (TPlaylist)playlist;
                         this.BindingModel.Type = this.resources.GetTitle(playlist.PlaylistType);
 
-                        if (request.SongId.HasValue)
+                        if (!string.IsNullOrEmpty(request.SongId))
                         {
                             var songBindingModel = this.BindingModel.SongsBindingModel.Songs.FirstOrDefault(s => s.Metadata.SongId == request.SongId);
                             if (songBindingModel != null)
@@ -132,7 +133,13 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
 
                 if (this.BindingModel.SongsBindingModel.SelectedItems.Count == 1)
                 {
-                    yield return new CommandMetadata(Symbol.MusicInfo, this.resources.GetString("Toolbar_StartRadio"), this.StartRadioCommand);
+                    yield return
+                        new CommandMetadata(
+                            Symbol.MusicInfo,
+                            this.settingsService.GetIsAllAccessAvailable()
+                                ? this.resources.GetString("Toolbar_StartRadio")
+                                : this.resources.GetString("Toolbar_StartInstantMix"),
+                            this.StartRadioCommand);
                 }
             }
 
@@ -233,7 +240,7 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
                     {
                         this.IsDataLoading = true;
 
-                        var radioResp = await this.radioWebService.CreateStationAsync(songBindingModel.Metadata);
+                        var radioResp = await this.radioStationsService.CreateAsync(songBindingModel.Metadata);
 
                         if (radioResp != null)
                         {

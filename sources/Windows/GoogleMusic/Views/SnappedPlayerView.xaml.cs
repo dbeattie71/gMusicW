@@ -42,7 +42,7 @@ namespace OutcoldSolutions.GoogleMusic.Views
 
             InAppPurchases.LicenseChanged += this.UpdateAdControl;
             this.UpdateAdControl();
-
+            
             this.Loaded += this.OnLoaded;
         }
 
@@ -51,13 +51,13 @@ namespace OutcoldSolutions.GoogleMusic.Views
             await Task.Run(
                 async () =>
                 {
-                    if (this.playerBindingModel != null
+                    if (this.playerBindingModel != null 
                         && this.playerBindingModel.CurrentSong != null
                         && this.playerBindingModel.SongsBindingModel.Songs != null)
                     {
                         await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, this.UpdateLayout);
                         var currentSongBindingModel = this.playerBindingModel.SongsBindingModel.Songs
-                            .FirstOrDefault(x => x.Metadata.SongId == this.playerBindingModel.CurrentSong.Metadata.SongId);
+                            .FirstOrDefault(x => string.Equals(x.Metadata.SongId, this.playerBindingModel.CurrentSong.Metadata.SongId, StringComparison.Ordinal));
                         await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => this.ListView.ScrollIntoView(currentSongBindingModel));
                     }
                 });

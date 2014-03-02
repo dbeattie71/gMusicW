@@ -55,11 +55,13 @@ namespace OutcoldSolutions.GoogleMusic.Models
 
         public Uri ArtUrl { get; set; }
 
+        public string GoogleAlbumId { get; set; }
+
         [Ignore]
         public bool IsCollection { get; set; }
 
         [Indexed]
-        public DateTime LastPlayed { get; set; }
+        public DateTime Recent { get; set; }
 
         [Reference]
         public Artist Artist { get; set; }

@@ -105,6 +105,11 @@ namespace OutcoldSolutions.GoogleMusic.Services
             return Path.Combine(AlbumArtCacheFolder, cache.FileName.Substring(0, 1), cache.FileName);
         }
 
+        public Task DeleteBrokenLinkAsync(Uri url, uint size)
+        {
+            return this.cachedAlbumArtsRepository.DeleteBrokenLinkAsync(url, size);
+        }
+
         public async Task<StorageFolder> GetCacheFolderAsync()
         {
             await this.InitializeCacheFolderAsync();
@@ -114,7 +119,8 @@ namespace OutcoldSolutions.GoogleMusic.Services
         public async Task ClearCacheAsync()
         {
             await this.cachedAlbumArtsRepository.ClearCacheAsync();
-            foreach (var storageItem in await this.cacheFolder.GetItemsAsync())
+            var folder = await this.GetCacheFolderAsync();
+            foreach (var storageItem in await folder.GetItemsAsync())
             {
                 await storageItem.DeleteAsync(StorageDeleteOption.PermanentDelete);
             }

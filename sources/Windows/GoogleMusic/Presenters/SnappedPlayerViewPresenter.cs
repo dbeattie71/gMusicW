@@ -24,9 +24,9 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
         private bool isRadio = false;
 
         public SnappedPlayerViewPresenter(
-            IMediaElementContainer mediaElementContainer,
-            IGoogleMusicSessionService sessionService,
-            IPlayQueueService queueService,
+            IMediaElementContainer mediaElementContainer, 
+            IGoogleMusicSessionService sessionService, 
+            IPlayQueueService queueService, 
             INavigationService navigationService,
             SnappedPlayerBindingModel snappedPlayerBindingModel)
             : base(mediaElementContainer, sessionService, queueService, navigationService, snappedPlayerBindingModel)
@@ -44,12 +44,12 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
                     () => { },
                     () => this.queueService.State != QueueState.Busy && !this.isRadio);
 
-            this.queueService.StateChanged += async (sender, args) => await this.Dispatcher.RunAsync(async () =>
-            {
-                this.UpdateCommands();
+            this.queueService.StateChanged += async (sender, args) => await this.Dispatcher.RunAsync(async () => 
+                {
+                    this.UpdateCommands();
 
-                await this.View.ScrollIntoCurrentSongAsync();
-            });
+                    await this.View.ScrollIntoCurrentSongAsync();
+                });
         }
 
         public DelegateCommand ShuffleCommand { get; set; }
@@ -69,49 +69,49 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
                 .Subscribe(
                     async (e) => await this.Dispatcher.RunAsync(
                         () =>
-                        {
-                            try
                             {
-                                this.isRadio = e.IsRadio;
+                                try
+                                {
+                                    this.isRadio = e.IsRadio;
 
-                                this.BindingModel.SongsBindingModel.SetCollection(e.SongsQueue);
-                                this.BindingModel.IsQueueEmpty = this.BindingModel.SongsBindingModel.Songs == null
-                                                                 || this.BindingModel.SongsBindingModel.Songs.Count == 0;
+                                    this.BindingModel.SongsBindingModel.SetCollection(e.SongsQueue);
+                                    this.BindingModel.IsQueueEmpty = this.BindingModel.SongsBindingModel.Songs == null
+                                                                     || this.BindingModel.SongsBindingModel.Songs.Count == 0;
 
-                                this.UpdateCommands();
-                            }
-                            catch (Exception exp)
-                            {
-                                this.Logger.Error(exp, "OnInitialized::QueueChangeEvent failed");
-                            }
-                        }));
+                                    this.UpdateCommands();
+                                }
+                                catch (Exception exp)
+                                {
+                                    this.Logger.Error(exp, "OnInitialized::QueueChangeEvent failed");
+                                }
+                            }));
 
             this.EventAggregator.GetEvent<SongsUpdatedEvent>()
                            .Subscribe(async (e) => await this.Dispatcher.RunAsync(() =>
-                           {
-                               try
                                {
-                                   if (this.BindingModel.CurrentSong != null)
+                                   try
                                    {
-                                       var currentSongUpdated =
-                                           e.UpdatedSongs.FirstOrDefault(
-                                               s =>
-                                               string.Equals(
-                                                   s.ProviderSongId,
-                                                   this.BindingModel.CurrentSong.Metadata.ProviderSongId,
-                                                   StringComparison.Ordinal));
-
-                                       if (currentSongUpdated != null)
+                                       if (this.BindingModel.CurrentSong != null)
                                        {
-                                           this.BindingModel.CurrentSong.Metadata = currentSongUpdated;
+                                           var currentSongUpdated =
+                                               e.UpdatedSongs.FirstOrDefault(
+                                                   s =>
+                                                   string.Equals(
+                                                       s.SongId,
+                                                       this.BindingModel.CurrentSong.Metadata.SongId,
+                                                       StringComparison.Ordinal));
+
+                                           if (currentSongUpdated != null)
+                                           {
+                                               this.BindingModel.CurrentSong.Metadata = currentSongUpdated;
+                                           }
                                        }
                                    }
-                               }
-                               catch (Exception exp)
-                               {
-                                   this.Logger.Error(exp, "OnInitialized::QueueChangeEvent failed");
-                               }
-                           }));
+                                   catch (Exception exp)
+                                   {
+                                       this.Logger.Error(exp, "OnInitialized::QueueChangeEvent failed");
+                                   }
+                               }));
         }
 
         private void UpdateCommands()

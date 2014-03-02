@@ -78,10 +78,15 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
             this.cachingService = cachingService;
             this.stateService = stateService;
 
+            Func<bool> canExecute = () => this.BindingModel.SelectedItems.Count > 0
+                                          && this.BindingModel.SelectedItems.All(x =>
+                                                  x.Playlist.PlaylistType != PlaylistType.Radio
+                                                  || (x.Playlist.PlaylistType == PlaylistType.UserPlaylist && !((UserPlaylist)x.Playlist).IsShared));
+
             this.PlayCommand = new DelegateCommand(this.Play);
-            this.QueueCommand = new DelegateCommand(this.Queue, () => this.BindingModel.SelectedItems.Count > 0);
-            this.DownloadCommand = new DelegateCommand(this.Download, () => this.BindingModel.SelectedItems.Count > 0);
-            this.UnPinCommand = new DelegateCommand(this.UnPin, () => this.BindingModel.SelectedItems.Count > 0);
+            this.QueueCommand = new DelegateCommand(this.Queue, canExecute);
+            this.DownloadCommand = new DelegateCommand(this.Download, canExecute);
+            this.UnPinCommand = new DelegateCommand(this.UnPin, canExecute);
 
             this.sessionService.SessionCleared += async (sender, args) => 
                     {
@@ -120,7 +125,7 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
                 .Subscribe(async (e) =>
                 {
                     await this.DeinitializeAsync();
-                    this.ShowProgressLoadingPopupView(forceToRefreshDb: true);
+                    this.ShowProgressLoadingPopupView();
                 });
         }
 
@@ -140,15 +145,16 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
             if (result != null && result.Succeed)
             {
                 var currentVersion = this.settingsService.GetValue<string>("Version", null);
+                var dbContext = new DbContext();
                 bool fCurrentVersion = string.Equals(currentVersion, Package.Current.Id.Version.ToVersionString(), StringComparison.OrdinalIgnoreCase);
 
-                if (fCurrentVersion)
+                if (fCurrentVersion && await dbContext.CheckVersionAsync())
                 {
                     await this.OnViewInitializedAsync();
                 }
                 else
                 {
-                    this.ShowProgressLoadingPopupView(forceToRefreshDb: false);
+                    this.ShowProgressLoadingPopupView();
                 }
             }
             else
@@ -169,15 +175,15 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
         private void AuthentificationPopupView_Closed(object sender, EventArgs eventArgs)
         {
             ((IAuthentificationPopupView)sender).Closed -= this.AuthentificationPopupView_Closed;
-            this.ShowProgressLoadingPopupView(forceToRefreshDb: true);
+            this.ShowProgressLoadingPopupView();
         }
 
-        private void ShowProgressLoadingPopupView(bool forceToRefreshDb)
+        private void ShowProgressLoadingPopupView()
         {
             this.Dispatcher.RunAsync(
                 () =>
                     {
-                        this.MainFrame.ShowPopup<IProgressLoadingPopupView>(PopupRegion.Full, new ProgressLoadingPopupViewRequest(forceToRefreshDb)).Closed += this.ProgressLoadingPopupView_Closed;
+                        this.MainFrame.ShowPopup<IProgressLoadingPopupView>(PopupRegion.Full).Closed += this.ProgressLoadingPopupView_Closed;
                     });
         }
 
@@ -273,11 +279,24 @@ namespace OutcoldSolutions.GoogleMusic.Presenters
 
         private async Task LoadGroupsAsync()
         {
-            var types = new[]
+            PlaylistType[] types;
+
+            if (this.stateService.IsOnline())
+            {
+                types = new[]
+                        {
+                            PlaylistType.SystemPlaylist, PlaylistType.UserPlaylist, PlaylistType.Radio,
+                            PlaylistType.Artist, PlaylistType.Album, PlaylistType.Genre
+                        };
+            }
+            else
+            {
+                types = new[]
                             {
-                                PlaylistType.SystemPlaylist, PlaylistType.UserPlaylist, PlaylistType.Artist, PlaylistType.Album,
-                                PlaylistType.Genre
+                            PlaylistType.SystemPlaylist, PlaylistType.UserPlaylist, PlaylistType.Artist,
+                            PlaylistType.Album, PlaylistType.Genre
                             };
+            }
 
             var groups = await Task.WhenAll(
                 types.Select(

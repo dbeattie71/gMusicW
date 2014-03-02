@@ -6,16 +6,16 @@ namespace OutcoldSolutions.GoogleMusic.Presenters.Popups
     using System;
 
     using OutcoldSolutions.GoogleMusic.Models;
+    using OutcoldSolutions.GoogleMusic.Services;
     using OutcoldSolutions.GoogleMusic.Shell;
     using OutcoldSolutions.GoogleMusic.Views.Popups;
-    using OutcoldSolutions.GoogleMusic.Web;
     using OutcoldSolutions.Presenters;
 
     public class RadioEditPopupViewPresenter : DisposableViewPresenterBase<IPlaylistEditPopupView>, IPlaylistEditPopupViewPresenter
     {
         private readonly ISearchService searchService;
-        private readonly IRadioWebService radioWebService;
-        private readonly RadioPlaylist radioPlaylist;
+        private readonly IRadioStationsService radioStationsService;
+        private readonly Radio radio;
 
         private string title;
 
@@ -23,15 +23,15 @@ namespace OutcoldSolutions.GoogleMusic.Presenters.Popups
 
         public RadioEditPopupViewPresenter(
             ISearchService searchService,
-            IRadioWebService radioWebService,
-            RadioPlaylist radioPlaylist)
+            IRadioStationsService radioStationsService,
+            Radio radio)
         {
             this.searchService = searchService;
-            this.radioWebService = radioWebService;
-            this.radioPlaylist = radioPlaylist;
+            this.radioStationsService = radioStationsService;
+            this.radio = radio;
             this.SaveCommand = new DelegateCommand(this.Save, this.CanSave);
             this.CancelCommand = new DelegateCommand(this.Cancel);
-            this.Title = radioPlaylist.Title;
+            this.Title = radio.Title;
         }
 
         public string Title
@@ -73,16 +73,17 @@ namespace OutcoldSolutions.GoogleMusic.Presenters.Popups
 
             try
             {
-                await this.radioWebService.RenameStationAsync(this.radioPlaylist, this.Title);
-                this.EventAggregator.Publish(PlaylistsChangeEvent.New(PlaylistType.Radio));
-
-                this.View.Close();
+                if (await this.radioStationsService.RenameStationAsync(this.radio, this.Title))
+                {
+                    this.EventAggregator.Publish(PlaylistsChangeEvent.New(PlaylistType.Radio));
+                    this.View.Close();
+                }
             }
             catch (Exception e)
             {
                 this.Logger.Error(e, "Cannot rename radio station");
             }
-            
+
             this.isRenaming = false;
             this.SaveCommand.RaiseCanExecuteChanged();
         }
